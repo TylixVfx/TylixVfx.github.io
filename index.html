@@ -9,7 +9,8 @@
         :root {
             --bg-color: #0a0a0a;
             --text-color: #e0e0e0;
-            --accent-color: #00d2ff; /* Cyan color for VFX feel */
+            --accent-color: #00d2ff; /* Cyan for Tylix */
+            --discord-color: #5865F2; /* Discord Color */
             --card-bg: #1a1a1a;
         }
 
@@ -21,18 +22,16 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
-            overflow-x: hidden; /* Prevent horizontal scroll due to animations */
+            overflow-x: hidden;
         }
 
         a { text-decoration: none; color: white; transition: 0.3s; }
         
-        /* --- KEYFRAME ANIMATIONS (VFX MAGIC) --- */
-        /* Smooth Fade In Up */
+        /* --- ANIMATIONS --- */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        /* Subtle Glitch shake effect for Shop button hover */
         @keyframes glitchShake {
             0% { transform: translate(0); }
             20% { transform: translate(-2px, 1px); }
@@ -60,14 +59,13 @@
         .nav-links a:not(.shop-btn-nav) { margin-left: 20px; font-size: 0.9rem; opacity: 0.8; position: relative; }
         .nav-links a:not(.shop-btn-nav):hover { color: var(--accent-color); opacity: 1; }
         
-        /* --- NEW SHOP BUTTON STYLE --- */
         .shop-btn-nav {
             margin-left: 25px;
             padding: 8px 20px;
             font-size: 0.9rem;
             font-weight: bold;
             color: var(--accent-color) !important;
-            border: 2px solid var(--accent-color); /* Neon Border */
+            border: 2px solid var(--accent-color);
             border-radius: 4px;
             position: relative;
             overflow: hidden;
@@ -75,25 +73,13 @@
             background: rgba(0, 210, 255, 0.05);
             box-shadow: 0 0 5px rgba(0, 210, 255, 0.2);
         }
-        /* The Light Sweep Effect */
-        .shop-btn-nav::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 210, 255, 0.5), transparent);
-            transition: 0.5s;
-        }
-        .shop-btn-nav:hover::before { left: 100%; }
-        /* Hover Glow & Glitch */
         .shop-btn-nav:hover {
             background: rgba(0, 210, 255, 0.2);
             box-shadow: 0 0 20px rgba(0, 210, 255, 0.6);
-            text-shadow: 2px 2px 0px red, -2px -2px 0px blue; /* Chromatic Aberration */
-            animation: glitchShake 0.2s linear; /* Tiny shake */
+            animation: glitchShake 0.2s linear;
         }
 
-        /* --- HERO SECTION (Animated) --- */
+        /* --- HERO SECTION --- */
         .hero {
             height: 85vh;
             display: flex;
@@ -104,7 +90,6 @@
             background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
             position: relative;
         }
-        /* Staggered Animation for Hero elements */
         .hero h1 { font-size: 4rem; margin: 0; text-transform: uppercase; letter-spacing: 5px; animation: fadeInUp 1s ease-out; }
         .hero span { color: var(--accent-color); text-shadow: 0 0 15px rgba(0, 210, 255, 0.5); }
         .hero p { font-size: 1.2rem; margin-top: 10px; opacity: 0.7; max-width: 600px; animation: fadeInUp 1s ease-out 0.2s backwards; }
@@ -120,62 +105,62 @@
             transition: 0.3s;
             font-size: 1rem;
             animation: fadeInUp 1s ease-out 0.4s backwards;
-            box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
         }
         .btn:hover { background: var(--accent-color); color: black; box-shadow: 0 0 30px rgba(0, 210, 255, 0.8); transform: translateY(-3px); }
 
-        /* --- SECTIONS & SCROLL ANIMATION CLASSES --- */
+        /* --- SECTIONS --- */
         .section-title { text-align: center; font-size: 2rem; margin: 80px 0 40px; text-transform: uppercase; display: inline-block; position: relative; }
-        /* Underline effect */
         .section-title::after { content: ''; display: block; width: 60%; height: 3px; background: var(--accent-color); margin: 10px auto 0; border-radius: 2px; box-shadow: 0 0 10px var(--accent-color); }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; text-align: center; padding-bottom: 50px; }
         
-        /* Hidden state for scroll animation */
         .hidden { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-        /* Visible state when scrolled into view */
         .show { opacity: 1; transform: translateY(0); }
 
-
         /* --- MOVIE EDITS GRID --- */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-        .card {
-            background: var(--card-bg);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: all 0.4s ease;
-            border: 1px solid #333;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        /* Card Hover Glow */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .card { background: var(--card-bg); border-radius: 10px; overflow: hidden; transition: all 0.4s ease; border: 1px solid #333; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
         .card:hover { transform: translateY(-10px) scale(1.02); border-color: var(--accent-color); box-shadow: 0 15px 30px rgba(0, 210, 255, 0.15); }
-        
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: black;}
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
         .card-info { padding: 20px; text-align: left; }
         .card-info h3 { margin: 0 0 10px 0; font-size: 1.2rem; color: white; }
         .card-info p { font-size: 0.9rem; color: #888; display: inline-block; background: #222; padding: 3px 10px; border-radius: 15px; margin-right: 5px; border: 1px solid #444; }
 
-        /* --- HOUDINI / VFX SECTION --- */
+        /* --- HOUDINI SECTION --- */
         .houdini-box {
-            background: linear-gradient(135deg, #1a1a1a, #111);
-            padding: 50px;
-            border-radius: 15px;
-            border-left: 5px solid #ff4500; /* Orange for Houdini */
-            text-align: left;
-            margin-bottom: 100px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            position: relative;
-            overflow: hidden;
+            background: linear-gradient(135deg, #1a1a1a, #111); padding: 50px; border-radius: 15px; border-left: 5px solid #ff4500; text-align: left; margin-bottom: 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; overflow: hidden;
         }
-        /* Subtle background pattern for Houdini box */
-        .houdini-box::before { content: ''; position: absolute; top:0; left:0; width: 100%; height: 100%; background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48cGF0aCBkPSJNMCAwaDQwdjQwSDB6IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTIwIDIwLjVWMThIMTh2Mi41aC0yLjV2MmgyLjV2Mi41aDJ2LTIuNWgyLjV2LTJoLTIuNXoiIGZpbGw9IiMzMzMiIG9wYWNpdHk9IjAuMiIvPjwvc3ZnPg=='); opacity: 0.3; pointer-events: none;}
-
         .houdini-title { color: #ff4500; font-weight: bold; font-size: 1.6rem; display: flex; align-items: center; text-shadow: 0 0 15px rgba(255, 69, 0, 0.4); }
-        .status-badge { background: rgba(255, 69, 0, 0.2); color: #ff4500; padding: 5px 12px; font-size: 0.8rem; border-radius: 20px; margin-left: 15px; border: 1px solid #ff4500; font-weight: bold; letter-spacing: 1px; }
+        .status-badge { background: rgba(255, 69, 0, 0.2); color: #ff4500; padding: 5px 12px; font-size: 0.8rem; border-radius: 20px; margin-left: 15px; border: 1px solid #ff4500; font-weight: bold; }
+
+        /* --- NEW DISCORD / COMMUNITY SECTION --- */
+        .discord-box {
+            background: linear-gradient(135deg, #0f0f13, #1e212b);
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid var(--discord-color);
+            text-align: center;
+            margin-bottom: 100px;
+            position: relative;
+            box-shadow: 0 0 30px rgba(88, 101, 242, 0.1);
+        }
+        .discord-box h3 { font-size: 1.8rem; margin-bottom: 10px; color: white; }
+        .discord-box p { color: #ccc; margin-bottom: 25px; max-width: 700px; margin-left: auto; margin-right: auto; }
+        .discord-btn {
+            padding: 12px 30px;
+            background-color: var(--discord-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .discord-btn:hover { background-color: #4752c4; transform: scale(1.05); box-shadow: 0 0 20px rgba(88, 101, 242, 0.5); }
 
         /* --- FOOTER --- */
         footer { padding: 50px; text-align: center; background: #050505; color: #555; font-size: 0.9rem; border-top: 1px solid #1a1a1a; }
@@ -188,7 +173,8 @@
         <div class="nav-links">
             <a href="#edits">Movie Edits</a>
             <a href="#houdini">VFX & R&D</a>
-            <a href="https://payhip.com/TylixAe" target="_blank" class="shop-btn-nav">Shop Assets</a>
+            <a href="#community">Community</a>
+            <a href="YOUR_PAYHIP_LINK_HERE" target="_blank" class="shop-btn-nav">Shop Assets</a>
         </div>
     </nav>
 
@@ -202,7 +188,6 @@
     <div class="container hidden" id="edits">
         <h2 class="section-title">Cinematic Movie Edits</h2>
         <div class="grid">
-            
             <div class="card hidden">
                 <div class="video-container">
                     <iframe src="https://www.youtube.com/embed/4_XpVlrDASo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -212,34 +197,43 @@
                     <div><p>After Effects</p><p>Twixtor</p><p>Sapphire</p></div>
                 </div>
             </div>
-
             <div class="card hidden">
                 <div class="video-container">
                     <iframe src="https://www.youtube.com/embed/QXRj_cSDs98" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
                 </div>
                 <div class="card-info">
-                    <h3>4k 60fps Godzilla Edit</h3>
+                    <h3>4K 60fps Godzilla Edit</h3>
                      <div><p>Horror Composition</p><p>Color Grading</p></div>
                 </div>
             </div>
-
         </div>
     </div>
 
     <div class="container hidden" id="houdini">
         <h2 class="section-title">VFX & Simulations</h2>
-        
         <div class="houdini-box hidden">
-            <div class="houdini-title">
-                Houdini Workflows <span class="status-badge">R&D IN PROGRESS 🚧</span>
-            </div>
-            <p style="margin-top: 20px; font-size: 1.1rem;">
-                Currently expanding my technical skillset into <strong>SideFX Houdini</strong> for high-end procedural generation and dynamics.
-            </p>
+            <div class="houdini-title">Houdini Workflows <span class="status-badge">R&D IN PROGRESS 🚧</span></div>
+            <p style="margin-top: 20px; font-size: 1.1rem;">Currently expanding my technical skillset into <strong>SideFX Houdini</strong> for high-end procedural generation and dynamics.</p>
             <p><strong>Focus Areas:</strong> Fluid Simulations (FLIP), Pyro FX (Fire/Smoke), and RBD Destruction.</p>
-            <p style="color: #888; font-style: italic; margin-top: 30px; border-left: 3px solid #ff4500; padding-left: 15px;">
-                "The goal is to blend creative editing with technical VFX wizardry."
+        </div>
+    </div>
+
+    <div class="container hidden" id="community">
+        <h2 class="section-title" style="border-color: var(--discord-color); box-shadow: 0 0 10px var(--discord-color);">Community Resources</h2>
+        
+        <div class="discord-box hidden">
+            <h3>Need Software Support & Plugins? 🛠️</h3>
+            <p>
+                Join our partner Editing Community to access a library of <strong>essential editing tools</strong>, 
+                get help with installation errors, and find the resources you need to create without limits.
             </p>
+            
+            <a href="https://discord.gg/9ac84DaW6C" target="_blank">
+                <button class="discord-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.5151.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.419-2.1568 2.419zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.419-2.1568 2.419z"/></svg>
+                    Join Discord Server
+                </button>
+            </a>
         </div>
     </div>
 
@@ -248,18 +242,13 @@
     </footer>
 
     <script>
-        // Yeh script check karti hai ki jab koi element screen pe aaye tabhi usse dikhaye
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('show'); // 'show' class add hone par animation chalti hai
-                }
+                if (entry.isIntersecting) { entry.target.classList.add('show'); }
             });
         });
-        // Jinke paas 'hidden' class hai, un sab pe nazar rakho
         const hiddenElements = document.querySelectorAll('.hidden');
         hiddenElements.forEach((el) => observer.observe(el));
     </script>
-
 </body>
 </html>
