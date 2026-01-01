@@ -110,7 +110,12 @@
 
         /* --- SECTIONS --- */
         .section-title { text-align: center; font-size: 2rem; margin: 80px 0 40px; text-transform: uppercase; display: inline-block; position: relative; }
+        /* Standard Cyan Underline */
         .section-title::after { content: ''; display: block; width: 60%; height: 3px; background: var(--accent-color); margin: 10px auto 0; border-radius: 2px; box-shadow: 0 0 10px var(--accent-color); }
+        
+        /* New Class for Discord Title (Purple Underline only) */
+        .discord-title::after { background: var(--discord-color) !important; box-shadow: 0 0 10px var(--discord-color) !important; }
+
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; text-align: center; padding-bottom: 50px; }
         
         .hidden { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
@@ -133,7 +138,7 @@
         .houdini-title { color: #ff4500; font-weight: bold; font-size: 1.6rem; display: flex; align-items: center; text-shadow: 0 0 15px rgba(255, 69, 0, 0.4); }
         .status-badge { background: rgba(255, 69, 0, 0.2); color: #ff4500; padding: 5px 12px; font-size: 0.8rem; border-radius: 20px; margin-left: 15px; border: 1px solid #ff4500; font-weight: bold; }
 
-        /* --- NEW DISCORD / COMMUNITY SECTION --- */
+        /* --- COMMUNITY SECTION --- */
         .discord-box {
             background: linear-gradient(135deg, #0f0f13, #1e212b);
             padding: 40px;
@@ -219,7 +224,7 @@
     </div>
 
     <div class="container hidden" id="community">
-        <h2 class="section-title" style="border-color: var(--discord-color); box-shadow: 0 0 10px var(--discord-color);">Community Resources</h2>
+        <h2 class="section-title discord-title">Community Resources</h2>
         
         <div class="discord-box hidden">
             <h3>Need Software Support & Plugins? 🛠️</h3>
