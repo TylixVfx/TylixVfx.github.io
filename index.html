@@ -13,16 +13,35 @@
             --card-bg: #1a1a1a;
         }
 
+        html { scroll-behavior: smooth; }
+
         body {
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scroll due to animations */
         }
 
         a { text-decoration: none; color: white; transition: 0.3s; }
         
+        /* --- KEYFRAME ANIMATIONS (VFX MAGIC) --- */
+        /* Smooth Fade In Up */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Subtle Glitch shake effect for Shop button hover */
+        @keyframes glitchShake {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 1px); }
+            40% { transform: translate(2px, -1px); }
+            60% { transform: translate(-1px, 2px); }
+            80% { transform: translate(1px, -2px); }
+            100% { transform: translate(0); }
+        }
+
         /* --- NAVIGATION --- */
         nav {
             display: flex;
@@ -34,85 +53,132 @@
             top: 0;
             z-index: 100;
             backdrop-filter: blur(10px);
+            border-bottom: 1px solid #1a1a1a;
         }
-        .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent-color); letter-spacing: 2px; }
-        .nav-links a { margin-left: 20px; font-size: 0.9rem; opacity: 0.8; }
-        .nav-links a:hover { color: var(--accent-color); opacity: 1; }
+        .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent-color); letter-spacing: 2px; text-shadow: 0 0 10px rgba(0, 210, 255, 0.3); }
+        .nav-links { display: flex; align-items: center; }
+        .nav-links a:not(.shop-btn-nav) { margin-left: 20px; font-size: 0.9rem; opacity: 0.8; position: relative; }
+        .nav-links a:not(.shop-btn-nav):hover { color: var(--accent-color); opacity: 1; }
+        
+        /* --- NEW SHOP BUTTON STYLE --- */
+        .shop-btn-nav {
+            margin-left: 25px;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--accent-color) !important;
+            border: 2px solid var(--accent-color); /* Neon Border */
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: rgba(0, 210, 255, 0.05);
+            box-shadow: 0 0 5px rgba(0, 210, 255, 0.2);
+        }
+        /* The Light Sweep Effect */
+        .shop-btn-nav::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 210, 255, 0.5), transparent);
+            transition: 0.5s;
+        }
+        .shop-btn-nav:hover::before { left: 100%; }
+        /* Hover Glow & Glitch */
+        .shop-btn-nav:hover {
+            background: rgba(0, 210, 255, 0.2);
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.6);
+            text-shadow: 2px 2px 0px red, -2px -2px 0px blue; /* Chromatic Aberration */
+            animation: glitchShake 0.2s linear; /* Tiny shake */
+        }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO SECTION (Animated) --- */
         .hero {
-            height: 80vh;
+            height: 85vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+            position: relative;
         }
-        .hero h1 { font-size: 4rem; margin: 0; text-transform: uppercase; letter-spacing: 5px; }
-        .hero span { color: var(--accent-color); }
-        .hero p { font-size: 1.2rem; margin-top: 10px; opacity: 0.7; max-width: 600px; }
+        /* Staggered Animation for Hero elements */
+        .hero h1 { font-size: 4rem; margin: 0; text-transform: uppercase; letter-spacing: 5px; animation: fadeInUp 1s ease-out; }
+        .hero span { color: var(--accent-color); text-shadow: 0 0 15px rgba(0, 210, 255, 0.5); }
+        .hero p { font-size: 1.2rem; margin-top: 10px; opacity: 0.7; max-width: 600px; animation: fadeInUp 1s ease-out 0.2s backwards; }
         .btn {
             margin-top: 30px;
-            padding: 12px 30px;
-            background: var(--accent-color);
-            color: black;
+            padding: 12px 35px;
+            background: transparent;
+            color: var(--accent-color);
             font-weight: bold;
-            border-radius: 5px;
-            border: none;
+            border-radius: 30px;
+            border: 2px solid var(--accent-color);
             cursor: pointer;
+            transition: 0.3s;
+            font-size: 1rem;
+            animation: fadeInUp 1s ease-out 0.4s backwards;
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
         }
-        .btn:hover { background: white; transform: scale(1.05); }
+        .btn:hover { background: var(--accent-color); color: black; box-shadow: 0 0 30px rgba(0, 210, 255, 0.8); transform: translateY(-3px); }
 
-        /* --- SECTIONS --- */
-        .section-title { text-align: center; font-size: 2rem; margin: 80px 0 40px; text-transform: uppercase; border-bottom: 2px solid var(--accent-color); display: inline-block; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; text-align: center; }
+        /* --- SECTIONS & SCROLL ANIMATION CLASSES --- */
+        .section-title { text-align: center; font-size: 2rem; margin: 80px 0 40px; text-transform: uppercase; display: inline-block; position: relative; }
+        /* Underline effect */
+        .section-title::after { content: ''; display: block; width: 60%; height: 3px; background: var(--accent-color); margin: 10px auto 0; border-radius: 2px; box-shadow: 0 0 10px var(--accent-color); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; text-align: center; padding-bottom: 50px; }
+        
+        /* Hidden state for scroll animation */
+        .hidden { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        /* Visible state when scrolled into view */
+        .show { opacity: 1; transform: translateY(0); }
+
 
         /* --- MOVIE EDITS GRID --- */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            gap: 25px;
         }
         .card {
             background: var(--card-bg);
             border-radius: 10px;
             overflow: hidden;
-            transition: transform 0.3s;
+            transition: all 0.4s ease;
             border: 1px solid #333;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
-        .card:hover { transform: translateY(-5px); border-color: var(--accent-color); }
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            height: 0;
-            overflow: hidden;
-        }
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        .card-info { padding: 15px; text-align: left; }
-        .card-info h3 { margin: 0; font-size: 1.1rem; }
-        .card-info p { font-size: 0.8rem; color: #888; }
+        /* Card Hover Glow */
+        .card:hover { transform: translateY(-10px) scale(1.02); border-color: var(--accent-color); box-shadow: 0 15px 30px rgba(0, 210, 255, 0.15); }
+        
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: black;}
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .card-info { padding: 20px; text-align: left; }
+        .card-info h3 { margin: 0 0 10px 0; font-size: 1.2rem; color: white; }
+        .card-info p { font-size: 0.9rem; color: #888; display: inline-block; background: #222; padding: 3px 10px; border-radius: 15px; margin-right: 5px; border: 1px solid #444; }
 
         /* --- HOUDINI / VFX SECTION --- */
         .houdini-box {
-            background: linear-gradient(45deg, #111, #222);
+            background: linear-gradient(135deg, #1a1a1a, #111);
             padding: 50px;
-            border-radius: 10px;
+            border-radius: 15px;
             border-left: 5px solid #ff4500; /* Orange for Houdini */
             text-align: left;
             margin-bottom: 100px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
         }
-        .houdini-title { color: #ff4500; font-weight: bold; font-size: 1.5rem; display: flex; align-items: center; }
-        .status-badge { background: #333; color: white; padding: 5px 10px; font-size: 0.8rem; border-radius: 20px; margin-left: 15px; }
+        /* Subtle background pattern for Houdini box */
+        .houdini-box::before { content: ''; position: absolute; top:0; left:0; width: 100%; height: 100%; background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48cGF0aCBkPSJNMCAwaDQwdjQwSDB6IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTIwIDIwLjVWMThIMTh2Mi41aC0yLjV2MmgyLjV2Mi41aDJ2LTIuNWgyLjV2LTJoLTIuNXoiIGZpbGw9IiMzMzMiIG9wYWNpdHk9IjAuMiIvPjwvc3ZnPg=='); opacity: 0.3; pointer-events: none;}
+
+        .houdini-title { color: #ff4500; font-weight: bold; font-size: 1.6rem; display: flex; align-items: center; text-shadow: 0 0 15px rgba(255, 69, 0, 0.4); }
+        .status-badge { background: rgba(255, 69, 0, 0.2); color: #ff4500; padding: 5px 12px; font-size: 0.8rem; border-radius: 20px; margin-left: 15px; border: 1px solid #ff4500; font-weight: bold; letter-spacing: 1px; }
 
         /* --- FOOTER --- */
-        footer { padding: 40px; text-align: center; background: #050505; color: #555; font-size: 0.9rem; }
+        footer { padding: 50px; text-align: center; background: #050505; color: #555; font-size: 0.9rem; border-top: 1px solid #1a1a1a; }
     </style>
 </head>
 <body>
@@ -122,65 +188,78 @@
         <div class="nav-links">
             <a href="#edits">Movie Edits</a>
             <a href="#houdini">VFX & R&D</a>
-            <a href="https://payhip.com/TylixAe" target="_blank" style="color: var(--accent-color);">Shop Assets</a>
+            <a href="https://payhip.com/TylixAe" target="_blank" class="shop-btn-nav">Shop Assets</a>
         </div>
     </nav>
 
     <section class="hero">
         <h1>I am <span>Tylix</span></h1>
-        <p>VFX Artist & Video Editor | Creating Cinematic Experiences</p>
+        <p>VFX Artist & Motion Designer | Creating Cinematic Experiences</p>
         <p style="font-size: 0.9rem; color: #888;">Specializing in After Effects & Learning Houdini</p>
         <a href="#edits"><button class="btn">View My Work</button></a>
     </section>
 
-    <div class="container" id="edits">
+    <div class="container hidden" id="edits">
         <h2 class="section-title">Cinematic Movie Edits</h2>
         <div class="grid">
             
-            <div class="card">
+            <div class="card hidden">
                 <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/EYiZJ9KDDjSaQfVR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/4_XpVlrDASo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
                 <div class="card-info">
                     <h3>Steve x Dustin | 4K Edit</h3>
-                    <p>After Effects • Twixtor • Sapphire</p>
+                    <div><p>After Effects</p><p>Twixtor</p><p>Sapphire</p></div>
                 </div>
             </div>
 
-            <div class="card">
+            <div class="card hidden">
                 <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/rqRWjmARLP3BoGm1" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/QXRj_cSDs98" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
                 </div>
                 <div class="card-info">
                     <h3>4k 60fps Godzilla Edit</h3>
-                    <p>Horror Composition • Color Grading</p>
+                     <div><p>Horror Composition</p><p>Color Grading</p></div>
                 </div>
             </div>
 
         </div>
     </div>
 
-    <div class="container" id="houdini">
+    <div class="container hidden" id="houdini">
         <h2 class="section-title">VFX & Simulations</h2>
         
-        <div class="houdini-box">
+        <div class="houdini-box hidden">
             <div class="houdini-title">
-                Houdini Workflows <span class="status-badge">Currently Learning 🚧</span>
+                Houdini Workflows <span class="status-badge">R&D IN PROGRESS 🚧</span>
             </div>
-            <p style="margin-top: 15px;">
-                I am currently expanding my skillset into <strong>SideFX Houdini</strong> for procedural generation and simulations.
+            <p style="margin-top: 20px; font-size: 1.1rem;">
+                Currently expanding my technical skillset into <strong>SideFX Houdini</strong> for high-end procedural generation and dynamics.
             </p>
-            <p><strong>Upcoming Projects:</strong> Fluid Simulations, Destruction VFX, and Particle Systems.</p>
-            <p style="color: #666; font-style: italic; margin-top: 20px;">
-                "Great VFX is invisible." - Uploads coming soon once mastered.
+            <p><strong>Focus Areas:</strong> Fluid Simulations (FLIP), Pyro FX (Fire/Smoke), and RBD Destruction.</p>
+            <p style="color: #888; font-style: italic; margin-top: 30px; border-left: 3px solid #ff4500; padding-left: 15px;">
+                "The goal is to blend creative editing with technical VFX wizardry."
             </p>
         </div>
     </div>
 
     <footer>
-        <p>© 2026 Tylix Visuals. All Rights Reserved.</p>
-        <p>Contact: vfxtylix@email.com</p>
+        <p>© 2026 Tylix Visuals. Crafted by a VFX Artist.</p>
     </footer>
+
+    <script>
+        // Yeh script check karti hai ki jab koi element screen pe aaye tabhi usse dikhaye
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show'); // 'show' class add hone par animation chalti hai
+                }
+            });
+        });
+        // Jinke paas 'hidden' class hai, un sab pe nazar rakho
+        const hiddenElements = document.querySelectorAll('.hidden');
+        hiddenElements.forEach((el) => observer.observe(el));
+    </script>
 
 </body>
 </html>
