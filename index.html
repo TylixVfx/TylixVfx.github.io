@@ -25,21 +25,35 @@
 
         body {
             margin: 0;
-            /* 🔥 FORCE WIDTH: Isse mobile pe bhi laptop jaisa faila hua dikhega */
+            /* 🔥 FORCE WIDTH: Mobile pe bhi Laptop jaisa bada dikhega */
             min-width: 1200px; 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
-            overflow-x: auto; /* Horizontal scroll allow kiya hai */
+            overflow-x: auto; 
             min-height: 100vh;
             
-            /* BACKGROUND */
+            /* ⚠️ CHANGE 1: Yahan se Animation HATA DI hai taaki Text na hile */
+            position: relative; 
+            z-index: 1;
+        }
+
+        /* ⚠️ CHANGE 2: Background ko ALAG LAYER bana diya */
+        body::before {
+            content: "";
+            position: fixed; /* Screen pe chipka rahega */
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; /* Text ke PEECHE rahega */
+            
+            /* BACKGROUND ANIMATION */
             background-image: 
                 radial-gradient(circle at 0% 0%, rgba(255, 0, 255, 0.15), transparent 40%),
                 radial-gradient(circle at 100% 100%, rgba(0, 255, 255, 0.15), transparent 40%),
                 linear-gradient(45deg, rgba(255, 0, 100, 0.05) 0%, rgba(0, 255, 100, 0.05) 50%, rgba(0, 100, 255, 0.05) 100%);
             background-size: 200% 200%;
+            
+            /* Sirf Background Color Change Hoga */
             animation: cyberpunkShift 15s linear infinite alternate, hueCycle 30s linear infinite;
         }
 
@@ -67,19 +81,19 @@
         /* --- NAVIGATION --- */
         nav {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 25px 60px; /* Thoda padding badhaya */
+            padding: 25px 60px; 
             background: rgba(2, 2, 5, 0.9);
             position: sticky; top: 0; z-index: 100;
             backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0, 210, 255, 0.2);
         }
         .logo { 
-            font-size: 2.2rem; /* 🔥 Logo Bada Kiya */
+            font-size: 2.2rem; 
             font-weight: 900; color: var(--accent-color); letter-spacing: 3px; 
             text-shadow: 0 0 15px var(--accent-glow);
         }
         .nav-links { display: flex; align-items: center; gap: 50px; }
         .nav-links a:not(.shop-btn-nav) { 
-            font-size: 1.1rem; /* 🔥 Links Bade Kiye */
+            font-size: 1.1rem; 
             opacity: 0.8; position: relative; letter-spacing: 1px; transition: 0.3s; 
         }
         .nav-links a:not(.shop-btn-nav):hover { color: var(--accent-color); opacity: 1; }
@@ -93,7 +107,7 @@
         .nav-links a:not(.shop-btn-nav):hover::before { opacity: 1; left: -12px; }
         
         .shop-btn-nav {
-            margin-left: 20px; padding: 12px 30px; font-size: 1.1rem; /* 🔥 Button Text Bada */
+            margin-left: 20px; padding: 12px 30px; font-size: 1.1rem; 
             font-weight: bold;
             color: var(--accent-color) !important; border: 2px solid var(--accent-color);
             border-radius: 4px; position: relative; overflow: hidden;
@@ -110,19 +124,19 @@
             background: transparent; position: relative; padding: 50px 20px;
         }
         .hero h1 { 
-            font-size: 6.5rem; /* 🔥 SUPER GIANT TEXT */
+            font-size: 6.5rem; 
             margin: 0; text-transform: uppercase; letter-spacing: 5px; font-weight: 900;
             animation: cyberReveal 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
             text-shadow: 0 5px 15px rgba(0,0,0,0.8);
         }
         .hero span { color: var(--accent-color); text-shadow: 0 0 15px var(--accent-glow), 0 0 40px var(--accent-glow); }
         .hero p { 
-            font-size: 1.5rem; /* 🔥 Subtitle Bada */
+            font-size: 1.5rem; 
             margin-top: 20px; opacity: 0.9; max-width: 800px; animation: cyberReveal 1s 0.2s forwards; opacity: 0; 
         }
 
         .btn {
-            margin-top: 60px; padding: 18px 50px; /* 🔥 Button Bada */
+            margin-top: 60px; padding: 18px 50px; 
             background: transparent; color: var(--accent-color);
             font-weight: bold; border-radius: 4px; border: 2px solid var(--accent-color);
             cursor: pointer; transition: 0.3s; font-size: 1.3rem; letter-spacing: 2px;
@@ -133,7 +147,7 @@
         /* --- SECTIONS --- */
         .section-title { 
             text-align: center; 
-            font-size: 3rem; /* 🔥 Heading Badi */
+            font-size: 3rem; 
             margin: 100px 0 50px; text-transform: uppercase; 
             display: inline-block; position: relative; font-weight: 800; letter-spacing: 2px;
             text-shadow: 0 5px 15px rgba(0,0,0,0.8);
@@ -146,7 +160,7 @@
         .show { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
 
         /* --- CARDS --- */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; } /* Bigger Cards */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; } 
         .card { 
             background: var(--card-bg); border-radius: 8px;
             overflow: hidden; transition: all 0.4s ease; border: 1px solid rgba(255, 255, 255, 0.08);
@@ -238,8 +252,6 @@
             border-radius: 50%; margin-right: 12px;
             box-shadow: 0 0 10px var(--online-color); animation: blinkStatus 2s infinite ease-in-out;
         }
-
-        /* ⚠️ NO MEDIA QUERY FOR MOBILE - ONLY DESKTOP LAYOUT WITH BIGGER FONTS ⚠️ */
     </style>
 </head>
 <body>
@@ -250,7 +262,7 @@
             <a href="#edits">Movie Edits</a>
             <a href="#houdini">VFX & R&D</a>
             <a href="#community">Community</a>
-            <a href="https://payhip.com/TylixAe" target="_blank" class="shop-btn-nav">Shop Assets</a>
+            <a href="YOUR_PAYHIP_LINK_HERE" target="_blank" class="shop-btn-nav">Shop Assets</a>
         </div>
     </nav>
 
