@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TYLIX | VFX & Motion</title>
     
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
@@ -12,7 +11,7 @@
         :root {
             --bg-color: #010103; 
             --text-color: #e0e0e0;
-            --accent-color: #00d2ff; /* Fixed Cyan Color */
+            --accent-color: #00d2ff; /* Cyan */
             --accent-glow: rgba(0, 210, 255, 0.9);
             --discord-color: #5865F2;
             --ae-color: #9900ff; 
@@ -26,11 +25,13 @@
 
         body {
             margin: 0;
+            /* Ensure minimum width so it doesn't crunch too much */
+            min-width: 1024px; 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
-            overflow-x: hidden;
+            overflow-x: auto; /* Allow horizontal scroll */
             min-height: 100vh;
             
             /* BACKGROUND */
@@ -69,6 +70,7 @@
             padding: 20px 50px; background: rgba(2, 2, 5, 0.9);
             position: sticky; top: 0; z-index: 100;
             backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0, 210, 255, 0.2);
+            min-width: 900px; /* Ensure nav doesn't break */
         }
         .logo { 
             font-size: 1.8rem; font-weight: 900; color: var(--accent-color); letter-spacing: 3px; 
@@ -224,33 +226,7 @@
             box-shadow: 0 0 10px var(--online-color); animation: blinkStatus 2s infinite ease-in-out;
         }
 
-        /* 🔥 MOBILE OPTIMIZATION (THE FIX) 🔥 */
-        @media only screen and (max-width: 768px) {
-            /* Navigation Fix */
-            nav { flex-direction: column; padding: 15px 10px; gap: 10px; background: rgba(0, 0, 0, 0.95); }
-            .logo { font-size: 1.5rem; }
-            .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; width: 100%; }
-            .nav-links a:not(.shop-btn-nav) { font-size: 0.8rem; margin: 0; }
-            .shop-btn-nav { margin: 5px 0 0 0; padding: 8px 20px; font-size: 0.8rem; }
-            
-            /* Text Scaling */
-            .hero { padding: 40px 15px; }
-            .hero h1 { font-size: 2.5rem; letter-spacing: 1px; } /* Smaller title */
-            .hero p { font-size: 1rem; padding: 0 5px; }
-            
-            /* Software Grid Compact Fix */
-            .software-grid { grid-template-columns: 1fr; margin-top: 30px; width: 100%; gap: 15px; }
-            .software-box { padding: 15px; } /* Less padding */
-            .software-icon { width: 45px; height: 45px; font-size: 1.1rem; }
-            .software-info h3 { font-size: 1rem; }
-            
-            /* General Adjustments */
-            .section-title { font-size: 1.5rem; margin: 50px 0 30px; }
-            .houdini-box, .discord-box { padding: 30px 15px; }
-            .houdini-title { font-size: 1.4rem; flex-direction: column; gap: 10px; text-align: center;}
-            .status-badge { margin-left: 0; }
-            .video-container { padding-bottom: 56.25%; } /* Keep 16:9 ratio */
-        }
+        /* ⚠️ MOBILE OPTIMIZATION REMOVED AS PER REQUEST ⚠️ */
     </style>
 </head>
 <body>
@@ -349,7 +325,7 @@
     <footer>
         <div class="status-badge-footer">
             <div class="status-dot"></div>
-            All Systems Operational
+            Server Status
         </div>
         <div class="footer-text">© 2026 Tylix Visuals. Crafted by a VFX Artist.</div>
     </footer>
