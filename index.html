@@ -10,16 +10,16 @@
     <style>
         /* --- GLOBAL STYLES & VARIABLES --- */
         :root {
-            --bg-color: #010103; /* Pure Black */
+            --bg-color: #010103; 
             --text-color: #e0e0e0;
-            --accent-color: #00d2ff; /* Cyan */
+            --accent-color: #00d2ff; /* Fixed Cyan Color */
             --accent-glow: rgba(0, 210, 255, 0.9);
             --discord-color: #5865F2;
             --ae-color: #9900ff; 
             --ps-color: #31a8ff; 
             --houdini-color: #ff4500;
             --card-bg: rgba(15, 15, 20, 0.85);
-            --online-color: #00ff88; /* Matrix Green for Online Status */
+            --online-color: #00ff88; 
         }
 
         html { scroll-behavior: smooth; }
@@ -33,7 +33,7 @@
             overflow-x: hidden;
             min-height: 100vh;
             
-            /* CYBERPUNK RGB BACKGROUND */
+            /* BACKGROUND */
             background-image: 
                 radial-gradient(circle at 0% 0%, rgba(255, 0, 255, 0.15), transparent 40%),
                 radial-gradient(circle at 100% 100%, rgba(0, 255, 255, 0.15), transparent 40%),
@@ -57,7 +57,6 @@
             50% { box-shadow: 0 0 25px var(--accent-glow), inset 0 0 10px var(--accent-glow); border-color: white; color: white;}
             100% { box-shadow: 0 0 5px var(--accent-glow), inset 0 0 5px var(--accent-glow); }
         }
-        /* Status Dot Pulse */
         @keyframes blinkStatus {
             0% { opacity: 1; box-shadow: 0 0 5px var(--online-color); }
             50% { opacity: 0.6; box-shadow: 0 0 0 transparent; }
@@ -79,7 +78,6 @@
         .nav-links a:not(.shop-btn-nav) { font-size: 0.9rem; opacity: 0.8; position: relative; letter-spacing: 1px; transition: 0.3s; }
         .nav-links a:not(.shop-btn-nav):hover { color: var(--accent-color); opacity: 1; }
         
-        /* Dot for Nav Links */
         .nav-links a:not(.shop-btn-nav)::before {
             content: ''; position: absolute; left: -20px; top: 50%; transform: translateY(-50%);
             width: 6px; height: 6px; background: var(--accent-color);
@@ -133,10 +131,10 @@
         .hidden { opacity: 0; transform: translateY(50px) scale(0.95); filter: blur(5px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
         .show { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
 
-        /* --- CARDS (SHARP) --- */
+        /* --- CARDS --- */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
         .card { 
-            background: var(--card-bg); border-radius: 8px; /* Slightly sharp */
+            background: var(--card-bg); border-radius: 8px;
             overflow: hidden; transition: all 0.4s ease; border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 15px 35px rgba(0,0,0,0.4); position: relative; backdrop-filter: blur(15px);
         }
@@ -147,7 +145,7 @@
         .card-info h3 { margin: 0 0 15px 0; font-size: 1.4rem; color: white; letter-spacing: 1px; font-weight: 800;}
         .card-info p { font-size: 0.8rem; color: var(--accent-color); display: inline-block; background: rgba(0, 210, 255, 0.15); padding: 6px 18px; border-radius: 4px; margin-right: 5px; border: 1px solid var(--accent-color); font-weight: bold; text-transform: uppercase;}
 
-        /* --- HOUDINI & SOFTWARE (SHARP) --- */
+        /* --- HOUDINI & SOFTWARE --- */
         .houdini-box {
             background: var(--card-bg); border-left: 5px solid var(--houdini-color);
             padding: 60px; text-align: left; margin-bottom: 50px; box-shadow: 0 20px 50px rgba(0,0,0,0.4); position: relative; overflow: hidden;
@@ -201,7 +199,7 @@
         }
         .discord-btn:hover { background-color: #4752c4; transform: translateY(-5px); box-shadow: 0 0 50px rgba(88, 101, 242, 0.8); }
 
-        /* --- FOOTER & STATUS INDICATOR (FIXED) --- */
+        /* --- FOOTER & STATUS --- */
         footer { 
             padding: 40px 20px; 
             text-align: center; 
@@ -214,35 +212,44 @@
         }
         .footer-text { color: #666; font-size: 0.9rem; }
         
-        /* 🔥 THE STATUS BADGE */
         .status-badge-footer {
-            display: inline-flex;
-            align-items: center;
-            background: rgba(0, 255, 136, 0.1); /* Low opacity green bg */
-            border: 1px solid rgba(0, 255, 136, 0.3);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: var(--online-color);
-            font-weight: bold;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+            display: inline-flex; align-items: center;
+            background: rgba(0, 255, 136, 0.1); border: 1px solid rgba(0, 255, 136, 0.3);
+            padding: 5px 15px; border-radius: 20px; font-size: 0.8rem;
+            color: var(--online-color); font-weight: bold; letter-spacing: 1px; text-transform: uppercase;
         }
         .status-dot {
-            width: 8px; height: 8px;
-            background-color: var(--online-color);
-            border-radius: 50%;
-            margin-right: 10px;
-            box-shadow: 0 0 10px var(--online-color);
-            animation: blinkStatus 2s infinite ease-in-out;
+            width: 8px; height: 8px; background-color: var(--online-color);
+            border-radius: 50%; margin-right: 10px;
+            box-shadow: 0 0 10px var(--online-color); animation: blinkStatus 2s infinite ease-in-out;
         }
 
-        /* MOBILE FIXES */
+        /* 🔥 MOBILE OPTIMIZATION (THE FIX) 🔥 */
         @media only screen and (max-width: 768px) {
-            nav { flex-direction: column; padding: 15px 20px; gap: 15px; }
-            .nav-links { gap: 20px; flex-wrap: wrap; justify-content: center; }
-            .hero h1 { font-size: 3rem; }
-            .software-grid { grid-template-columns: 1fr; max-width: 320px; }
+            /* Navigation Fix */
+            nav { flex-direction: column; padding: 15px 10px; gap: 10px; background: rgba(0, 0, 0, 0.95); }
+            .logo { font-size: 1.5rem; }
+            .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; width: 100%; }
+            .nav-links a:not(.shop-btn-nav) { font-size: 0.8rem; margin: 0; }
+            .shop-btn-nav { margin: 5px 0 0 0; padding: 8px 20px; font-size: 0.8rem; }
+            
+            /* Text Scaling */
+            .hero { padding: 40px 15px; }
+            .hero h1 { font-size: 2.5rem; letter-spacing: 1px; } /* Smaller title */
+            .hero p { font-size: 1rem; padding: 0 5px; }
+            
+            /* Software Grid Compact Fix */
+            .software-grid { grid-template-columns: 1fr; margin-top: 30px; width: 100%; gap: 15px; }
+            .software-box { padding: 15px; } /* Less padding */
+            .software-icon { width: 45px; height: 45px; font-size: 1.1rem; }
+            .software-info h3 { font-size: 1rem; }
+            
+            /* General Adjustments */
+            .section-title { font-size: 1.5rem; margin: 50px 0 30px; }
+            .houdini-box, .discord-box { padding: 30px 15px; }
+            .houdini-title { font-size: 1.4rem; flex-direction: column; gap: 10px; text-align: center;}
+            .status-badge { margin-left: 0; }
+            .video-container { padding-bottom: 56.25%; } /* Keep 16:9 ratio */
         }
     </style>
 </head>
