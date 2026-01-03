@@ -9,15 +9,16 @@
     <style>
         /* --- GLOBAL STYLES & VARIABLES --- */
         :root {
-            --bg-color: #010103; 
+            /* Background ko thoda transparent rakha taaki piche ka RGB dikhe */
+            --bg-color: transparent; 
             --text-color: #e0e0e0;
-            --accent-color: #00d2ff; /* FIXED CYAN */
+            --accent-color: #00d2ff; 
             --accent-glow: rgba(0, 210, 255, 0.9);
             --discord-color: #5865F2;
             --ae-color: #9900ff; 
             --ps-color: #31a8ff; 
             --houdini-color: #ff4500;
-            --card-bg: rgba(15, 15, 20, 0.85);
+            --card-bg: rgba(10, 10, 15, 0.8); /* Darker cards to stand out */
             --online-color: #00ff88; 
         }
 
@@ -25,39 +26,41 @@
 
         body {
             margin: 0;
-            /* Force Laptop Width on Mobile */
-            min-width: 1200px; 
+            min-width: 1200px; /* Laptop View on Mobile */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
+            background-color: #000; /* Base Black */
             color: var(--text-color);
             line-height: 1.6;
             overflow-x: auto;
             min-height: 100vh;
-            position: relative; /* Important for the background fix */
+            position: relative;
+            z-index: 1; /* Content upar rahega */
         }
 
-        /* 🔥 FIX: BACKGROUND LAYER ALAG KAR DI 🔥 */
-        /* Ab RGB Animation sirf is layer pe chalega, Text pe nahi */
+        /* 🔥 ASLI RGB CYBERPUNK BACKGROUND ENGINE 🔥 */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            z-index: -1; /* Text ke peeche rahega */
+            z-index: -1; /* Content ke peeche */
             
-            /* CYBERPUNK RGB BACKGROUND */
-            background-image: 
-                radial-gradient(circle at 0% 0%, rgba(255, 0, 255, 0.15), transparent 40%),
-                radial-gradient(circle at 100% 100%, rgba(0, 255, 255, 0.15), transparent 40%),
-                linear-gradient(45deg, rgba(255, 0, 100, 0.05) 0%, rgba(0, 255, 100, 0.05) 50%, rgba(0, 100, 255, 0.05) 100%);
-            background-size: 200% 200%;
+            /* Powerful Gradients */
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(255, 0, 150, 0.35), transparent 50%), /* Magenta Blob */
+                radial-gradient(circle at 85% 30%, rgba(0, 255, 255, 0.35), transparent 50%), /* Cyan Blob */
+                radial-gradient(circle at 50% 80%, rgba(100, 0, 255, 0.3), transparent 50%); /* Purple Blob */
             
-            /* Animation sirf yahan apply hogi */
-            animation: cyberpunkShift 15s linear infinite alternate, hueCycle 30s linear infinite;
+            background-color: #020205; /* Deep Space Black Base */
+            background-size: 150% 150%;
+            animation: nebulaMove 10s ease-in-out infinite alternate;
         }
 
-        @keyframes cyberpunkShift { 0% { background-position: 0% 100%; } 100% { background-position: 100% 0%; } }
-        @keyframes hueCycle { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
+        /* Animation sirf background ki */
+        @keyframes nebulaMove {
+            0% { background-position: 0% 0%; filter: hue-rotate(0deg); }
+            100% { background-position: 100% 50%; filter: hue-rotate(40deg); }
+        }
 
         a { text-decoration: none; color: white; transition: 0.3s; }
         
@@ -81,7 +84,7 @@
         nav {
             display: flex; justify-content: space-between; align-items: center;
             padding: 25px 60px; 
-            background: rgba(2, 2, 5, 0.9);
+            background: rgba(2, 2, 5, 0.7); /* Thoda transparent taaki piche color dikhe */
             position: sticky; top: 0; z-index: 100;
             backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0, 210, 255, 0.2);
         }
@@ -129,7 +132,7 @@
             text-shadow: 0 5px 15px rgba(0,0,0,0.8);
         }
         .hero span { 
-            color: var(--accent-color) !important; /* Force Cyan */
+            color: var(--accent-color) !important; 
             text-shadow: 0 0 15px var(--accent-glow), 0 0 40px var(--accent-glow);
         }
         .hero p { 
@@ -340,7 +343,7 @@
                 Join our partner Editing Community to access a library of <strong>essential editing tools</strong>, 
                 get help with installation errors, and find the resources you need to create without limits.
             </p>
-            <a href="https://discord.gg/UNQ4vXeP4A" target="_blank">
+            <a href="YOUR_FRIEND_DISCORD_LINK_HERE" target="_blank">
                 <button class="discord-btn">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.5151.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.419-2.1568 2.419zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.419-2.1568 2.419z"/></svg>
                     Join Discord Server
