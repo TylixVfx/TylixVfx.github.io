@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TYLIX | VFX & Motion</title>
     
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
@@ -11,7 +12,7 @@
         :root {
             --bg-color: #010103; 
             --text-color: #e0e0e0;
-            --accent-color: #00d2ff; /* Cyan */
+            --accent-color: #00d2ff; 
             --accent-glow: rgba(0, 210, 255, 0.9);
             --discord-color: #5865F2;
             --ae-color: #9900ff; 
@@ -25,16 +26,14 @@
 
         body {
             margin: 0;
-            /* Ensure minimum width so it doesn't crunch too much */
-            min-width: 1024px; 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
-            overflow-x: auto; /* Allow horizontal scroll */
+            overflow-x: hidden;
             min-height: 100vh;
             
-            /* BACKGROUND */
+            /* CYBERPUNK RGB BACKGROUND */
             background-image: 
                 radial-gradient(circle at 0% 0%, rgba(255, 0, 255, 0.15), transparent 40%),
                 radial-gradient(circle at 100% 100%, rgba(0, 255, 255, 0.15), transparent 40%),
@@ -70,7 +69,6 @@
             padding: 20px 50px; background: rgba(2, 2, 5, 0.9);
             position: sticky; top: 0; z-index: 100;
             backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0, 210, 255, 0.2);
-            min-width: 900px; /* Ensure nav doesn't break */
         }
         .logo { 
             font-size: 1.8rem; font-weight: 900; color: var(--accent-color); letter-spacing: 3px; 
@@ -226,7 +224,33 @@
             box-shadow: 0 0 10px var(--online-color); animation: blinkStatus 2s infinite ease-in-out;
         }
 
-        /* ⚠️ MOBILE OPTIMIZATION REMOVED AS PER REQUEST ⚠️ */
+        /* 🔥 MOBILE BIG TEXT OPTIMIZATION 🔥 */
+        @media only screen and (max-width: 768px) {
+            /* 1. Nav Fix */
+            nav { flex-direction: column; padding: 15px 10px; gap: 10px; background: rgba(0, 0, 0, 0.95); }
+            .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; }
+            
+            /* 2. BIG TEXT FOR MOBILE HERO (Like Laptop) */
+            .hero { padding: 60px 15px; } /* More padding */
+            .hero h1 { 
+                font-size: 4rem; /* 🔥 HUGE TEXT */
+                line-height: 1.1; 
+                margin-bottom: 20px;
+            }
+            .hero p { font-size: 1.2rem; }
+            
+            /* 3. Stacked Boxes but BIG */
+            .software-grid { grid-template-columns: 1fr; width: 100%; gap: 20px; }
+            .software-box { padding: 25px; } /* Bigger boxes */
+            .software-icon { width: 60px; height: 60px; font-size: 1.5rem; } /* Bigger icons */
+            .software-info h3 { font-size: 1.3rem; } /* Bigger text inside box */
+            
+            /* 4. Section Titles BIG */
+            .section-title { font-size: 2.2rem; margin: 70px 0 40px; }
+            
+            .houdini-title { font-size: 1.8rem; text-align: center; flex-direction: column; gap: 15px;}
+            .status-badge { margin: 0; }
+        }
     </style>
 </head>
 <body>
