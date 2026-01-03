@@ -41,7 +41,7 @@
             overflow-y: scroll;
         }
 
-        /* --- BACKGROUND (Nebula + Grid) --- */
+        /* --- BACKGROUND --- */
         body::before {
             content: ""; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; z-index: -2;
             background: radial-gradient(circle at 50% 50%, var(--secondary-glow), transparent 40%), radial-gradient(circle at 80% 20%, rgba(0, 210, 255, 0.15), transparent 30%);
@@ -95,7 +95,6 @@
 
         /* --- SECTIONS --- */
         .section-title { text-align: center; font-size: 3rem; margin: 100px 0 50px; text-transform: uppercase; display: inline-block; position: relative; font-weight: 800; letter-spacing: 2px; text-shadow: 0 5px 15px rgba(0,0,0,0.8); }
-        /* Static Line under titles */
         .section-title::after { content: ''; display: block; width: 100%; height: 4px; margin: 15px auto 0; background: var(--accent-color); box-shadow: 0 0 25px var(--accent-color); }
         .discord-title::after { background: var(--discord-color) !important; box-shadow: 0 0 25px var(--discord-color) !important; }
 
@@ -112,26 +111,22 @@
         .card-info h3 { margin: 0 0 15px 0; font-size: 1.6rem; color: white; letter-spacing: 1px; font-weight: 800;}
         .card-info p { font-size: 1rem; color: var(--accent-color); display: inline-block; background: rgba(0, 210, 255, 0.15); padding: 8px 20px; border-radius: 4px; margin-right: 5px; border: 1px solid var(--accent-color); font-weight: bold; text-transform: uppercase;}
 
-        /* --- 🔥 HOUDINI SECTION FIXED - VERTICAL LEFT LINE 🔥 --- */
+        /* --- HOUDINI & SOFTWARE --- */
         .houdini-box { 
             background: var(--card-bg); 
-            /* THICK GLOWING LEFT BORDER */
             border-left: 8px solid var(--houdini-color); 
             box-shadow: -5px 0 25px rgba(255, 69, 0, 0.5), 0 20px 50px rgba(0,0,0,0.4);
             padding: 70px; text-align: left; margin-bottom: 50px; position: relative; overflow: hidden; border-radius: 8px; backdrop-filter: blur(15px); 
         }
-        
         .houdini-title { 
             color: var(--houdini-color); font-weight: 900; font-size: 2.5rem; 
             display: flex; align-items: center; flex-wrap: wrap; gap: 20px;
             text-shadow: 0 0 30px rgba(255, 69, 0, 0.7); letter-spacing: 2px; 
             margin-bottom: 25px;
         }
-        
         .status-badge { background: rgba(255, 69, 0, 0.2); color: var(--houdini-color); padding: 8px 20px; font-size: 1rem; border: 1px solid var(--houdini-color); font-weight: bold; letter-spacing: 2px; border-radius: 4px; }
         .houdini-box p { font-size: 1.2rem; }
 
-        /* --- SOFTWARE GRID --- */
         .software-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; margin-top: 60px; justify-content: center; max-width: 1000px; width: 100%; animation: cyberReveal 1s 0.3s forwards; opacity: 0; position: relative; z-index: 2; }
         .software-box { display: flex; align-items: center; background: rgba(20, 20, 25, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); padding: 25px; border-radius: 6px; text-align: left; transition: 0.3s; backdrop-filter: blur(10px); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
         .software-box:hover { transform: translateY(-8px); box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
@@ -142,11 +137,7 @@
         /* Software Colors */
         .ae-box { border-color: rgba(153, 0, 255, 0.2); } .ae-box .software-icon { background: rgba(153, 0, 255, 0.15); color: var(--ae-color); border: 2px solid var(--ae-color); } .ae-box:hover { box-shadow: 0 0 40px rgba(153, 0, 255, 0.3); border-color: var(--ae-color); } .ae-box .software-info p { color: var(--ae-color); }
         
-        /* BLENDER BOX (Text 'Bl') */
-        .blender-box { border-color: rgba(232, 125, 13, 0.2); } 
-        .blender-box .software-icon { background: rgba(232, 125, 13, 0.15); color: var(--blender-color); border: 2px solid var(--blender-color); } 
-        .blender-box:hover { box-shadow: 0 0 40px rgba(232, 125, 13, 0.3); border-color: var(--blender-color); } 
-        .blender-box .software-info p { color: var(--blender-color); }
+        .blender-box { border-color: rgba(232, 125, 13, 0.2); } .blender-box .software-icon { background: rgba(232, 125, 13, 0.15); color: var(--blender-color); border: 2px solid var(--blender-color); } .blender-box:hover { box-shadow: 0 0 40px rgba(232, 125, 13, 0.3); border-color: var(--blender-color); } .blender-box .software-info p { color: var(--blender-color); }
         
         .hou-box { border-color: rgba(255, 69, 0, 0.2); } .hou-box .software-icon { background: rgba(255, 69, 0, 0.15); color: var(--houdini-color); border: 2px solid var(--houdini-color); } .hou-box:hover { box-shadow: 0 0 40px rgba(255, 69, 0, 0.3); border-color: var(--houdini-color); } .hou-box .software-info p { color: var(--houdini-color); }
 
@@ -157,6 +148,43 @@
         .discord-btn svg { fill: currentColor; transition: 0.3s; }
         .discord-btn:hover { background-color: var(--discord-color); color: white; transform: translateY(-5px); box-shadow: 0 0 50px rgba(88, 101, 242, 0.8); }
 
+        /* --- CONTACT SECTION --- */
+        .contact-box {
+            background: rgba(15, 15, 25, 0.8);
+            padding: 50px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 40px rgba(0, 210, 255, 0.05);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .contact-btn-wrapper { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+        .email-btn {
+            margin-top: 0 !important;
+            padding: 15px 40px;
+            border: 2px solid var(--accent-color);
+            background: rgba(0, 210, 255, 0.1);
+            color: white;
+            display: flex; align-items: center; gap: 10px;
+            font-size: 1.2rem; font-weight: bold; border-radius: 4px; cursor: pointer; transition: 0.3s;
+        }
+        .email-btn:hover { background: var(--accent-color); color: black; box-shadow: 0 0 40px var(--accent-glow); }
+        
+        .linkedin-btn {
+            margin-top: 0 !important;
+            padding: 15px 40px;
+            border: 2px solid #0077b5; /* LinkedIn Blue */
+            color: #0077b5;
+            background: rgba(0, 119, 181, 0.1);
+            display: flex; align-items: center; gap: 10px;
+            font-size: 1.2rem; font-weight: bold; border-radius: 4px; cursor: pointer; transition: 0.3s;
+        }
+        .linkedin-btn svg { fill: currentColor; }
+        .linkedin-btn:hover { background: #0077b5; color: white; box-shadow: 0 0 40px rgba(0, 119, 181, 0.6); }
+
+        /* --- FOOTER & STATUS --- */
         footer { padding: 50px 20px; text-align: center; background: rgba(0,0,0,0.8); border-top: 1px solid rgba(255, 255, 255, 0.05); display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .footer-text { color: #666; font-size: 1.1rem; }
         .status-badge-footer { display: inline-flex; align-items: center; background: rgba(0, 255, 136, 0.1); border: 1px solid rgba(0, 255, 136, 0.3); padding: 8px 20px; border-radius: 20px; font-size: 1rem; color: var(--online-color); font-weight: bold; letter-spacing: 1px; text-transform: uppercase; }
@@ -171,6 +199,7 @@
             <a href="#edits" class="menu-link">Movie Edits</a>
             <a href="#houdini" class="menu-link">VFX & R&D</a>
             <a href="#community" class="menu-link">Community</a>
+            <a href="#contact" class="menu-link">Contact</a>
             <a href="https://payhip.com/TylixAe" target="_blank" class="shop-btn-nav">Shop Assets</a>
         </div>
     </nav>
@@ -256,12 +285,43 @@
         </div>
     </div>
 
+    <div class="container hidden" id="contact">
+        <h2 class="section-title">Let's Work Together</h2>
+        
+        <div class="contact-box">
+            <p style="font-size: 1.2rem; margin-bottom: 30px; color: #ccc;">
+                Looking for high-end VFX, Motion Graphics, or Cinematic Editing? 
+                <br>I am available for freelance projects and full-time roles.
+            </p>
+
+            <div class="contact-btn-wrapper">
+                
+                <a href="mailto:vfxtylix@gmail.com" style="text-decoration: none;">
+                    <button class="email-btn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20,4H4C2.897,4,2,4.897,2,6v12c0,1.103,0.897,2,2,2h16c1.103,0,2-0.897,2-2V6C22,4.897,21.103,4,20,4z M20,6v0.511 l-8,6.223L4,6.512V6H20z M4,18V9.044l7.386,5.745C11.566,14.93,11.783,15,12,15s0.434-0.07,0.614-0.211L20,9.044V18H4z"/></svg>
+                        Send Email
+                    </button>
+                </a>
+
+                <a href="www.linkedin.com/in/sumit-nath-028a003a2" target="_blank" style="text-decoration: none;">
+                    <button class="linkedin-btn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                        LinkedIn
+                    </button>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
     <footer>
         <div class="status-badge-footer">
             <div class="status-dot"></div>
             Server Status
         </div>
-        <div class="footer-text">© 2026 Tylix Visuals. Made by a VFX Artist.</div>
+        <div class="footer-text">© 2026 Tylix Visuals. Crafted by a VFX Artist.</div>
     </footer>
 
     <script>
