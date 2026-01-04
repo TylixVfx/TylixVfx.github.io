@@ -58,7 +58,6 @@
         
         /* --- ANIMATIONS --- */
         @keyframes cyberReveal { 0% { opacity: 0; transform: translateY(50px) scale(0.95); filter: blur(10px); } 100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }
-        @keyframes neonPulse { 0% { box-shadow: 0 0 5px var(--accent-glow); } 50% { box-shadow: 0 0 25px var(--accent-glow); } 100% { box-shadow: 0 0 5px var(--accent-glow); } }
         @keyframes blinkStatus { 0% { opacity: 1; box-shadow: 0 0 5px var(--online-color); } 50% { opacity: 0.6; } 100% { opacity: 1; box-shadow: 0 0 5px var(--online-color); } }
 
         /* --- HERO LIGHTNING VFX --- */
@@ -82,8 +81,25 @@
         .menu-link::before { content: ''; position: absolute; left: -20px; top: 50%; transform: translateY(-50%); width: 6px; height: 6px; background: var(--accent-color); border-radius: 50%; opacity: 0; transition: 0.3s; box-shadow: 0 0 10px var(--accent-color); }
         .menu-link:hover::before { opacity: 1; left: -12px; }
         
-        .shop-btn-nav { margin-left: 20px; padding: 12px 30px; font-size: 1.1rem; font-weight: bold; color: var(--accent-color) !important; border: 2px solid var(--accent-color); border-radius: 4px; position: relative; overflow: hidden; background: rgba(0, 210, 255, 0.05); animation: neonPulse 2s infinite; transition: 0.3s ease; }
-        .shop-btn-nav:hover { background: var(--accent-color); color: black !important; box-shadow: 0 0 40px var(--accent-glow); transform: translateY(-2px); animation: none; }
+        /* 🔥 NEW CART ICON STYLES 🔥 */
+        .shop-btn-nav {
+            margin-left: 30px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--accent-color) !important; /* Cyan Color */
+            transition: 0.3s ease;
+            padding: 5px;
+        }
+        .shop-btn-nav svg {
+            width: 32px; height: 32px; /* Icon Size */
+            fill: currentColor; /* Uses text color */
+            filter: drop-shadow(0 0 8px var(--accent-glow)); /* Neon Glow */
+            transition: 0.3s ease-in-out;
+        }
+        .shop-btn-nav:hover svg {
+            color: white !important; /* Turns white on hover */
+            transform: scale(1.15) rotate(-5deg); /* Cool Hover Animation */
+            filter: drop-shadow(0 0 20px var(--accent-glow)); /* Intense Glow */
+        }
 
         /* --- HERO --- */
         .hero { min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: transparent; position: relative; padding: 50px 20px; }
@@ -200,7 +216,13 @@
             <a href="#houdini" class="menu-link">VFX & R&D</a>
             <a href="#community" class="menu-link">Community</a>
             <a href="#contact" class="menu-link">Contact</a>
-            <a href="https://payhip.com/TylixAe" target="_blank" class="shop-btn-nav">Shop Assets</a>
+            
+            <a href="https://payhip.com/TylixAe" target="_blank" class="shop-btn-nav" title="Shop Assets">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+                </svg>
+            </a>
+
         </div>
     </nav>
 
@@ -296,7 +318,7 @@
 
             <div class="contact-btn-wrapper">
                 
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sumitnath167@outlook.com" target="_blank" style="text-decoration: none;">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sumitnath028@outlook.com" target="_blank" style="text-decoration: none;">
                     <button class="email-btn">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20,4H4C2.897,4,2,4.897,2,6v12c0,1.103,0.897,2,2,2h16c1.103,0,2-0.897,2-2V6C22,4.897,21.103,4,20,4z M20,6v0.511 l-8,6.223L4,6.512V6H20z M4,18V9.044l7.386,5.745C11.566,14.93,11.783,15,12,15s0.434-0.07,0.614-0.211L20,9.044V18H4z"/></svg>
                         Send Email
