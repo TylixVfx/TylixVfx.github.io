@@ -34,31 +34,36 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
-            overflow-x: auto; 
+            overflow-x: hidden;
             min-height: 100vh;
             position: relative;
             z-index: 1;
-            overflow-y: scroll;
         }
 
-        /* --- BACKGROUND --- */
-        body::before {
-            content: ""; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; z-index: -2;
-            background: radial-gradient(circle at 50% 50%, var(--secondary-glow), transparent 40%), radial-gradient(circle at 80% 20%, rgba(0, 210, 255, 0.15), transparent 30%);
-            animation: moveNebula 15s ease-in-out infinite alternate; filter: blur(60px); opacity: 0.6;
+        /* --- PARTICLE CANVAS --- */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
         }
+
+        /* --- BACKGROUND OVERLAY --- */
         body::after {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
             background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 50px 50px; pointer-events: none;
         }
-        @keyframes moveNebula { 0% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-5%, 5%) scale(1.1); } 100% { transform: translate(5%, -5%) scale(1); } }
 
         a { text-decoration: none; color: white; transition: 0.3s; }
         
         /* --- ANIMATIONS --- */
         @keyframes cyberReveal { 0% { opacity: 0; transform: translateY(50px) scale(0.95); filter: blur(10px); } 100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }
         @keyframes blinkStatus { 0% { opacity: 1; box-shadow: 0 0 5px var(--online-color); } 50% { opacity: 0.6; } 100% { opacity: 1; box-shadow: 0 0 5px var(--online-color); } }
+        @keyframes neonPulse { 0% { text-shadow: 0 0 20px var(--accent-glow); } 50% { text-shadow: 0 0 40px var(--accent-glow), 0 0 10px white; } 100% { text-shadow: 0 0 20px var(--accent-glow); } }
 
         /* --- HERO LIGHTNING VFX --- */
         .hero-vfx-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; overflow: hidden; }
@@ -81,33 +86,46 @@
         .menu-link::before { content: ''; position: absolute; left: -20px; top: 50%; transform: translateY(-50%); width: 6px; height: 6px; background: var(--accent-color); border-radius: 50%; opacity: 0; transition: 0.3s; box-shadow: 0 0 10px var(--accent-color); }
         .menu-link:hover::before { opacity: 1; left: -12px; }
         
-        /* 🔥 NEW CART ICON STYLES 🔥 */
         .shop-btn-nav {
-            margin-left: 30px;
-            display: flex; align-items: center; justify-content: center;
-            color: var(--accent-color) !important; /* Cyan Color */
-            transition: 0.3s ease;
-            padding: 5px;
+            margin-left: 30px; display: flex; align-items: center; justify-content: center;
+            color: var(--accent-color) !important; transition: 0.3s ease; padding: 5px;
         }
         .shop-btn-nav svg {
-            width: 32px; height: 32px; /* Icon Size */
-            fill: currentColor; /* Uses text color */
-            filter: drop-shadow(0 0 8px var(--accent-glow)); /* Neon Glow */
-            transition: 0.3s ease-in-out;
+            width: 32px; height: 32px; fill: currentColor;
+            filter: drop-shadow(0 0 8px var(--accent-glow)); transition: 0.3s ease-in-out;
         }
         .shop-btn-nav:hover svg {
-            color: white !important; /* Turns white on hover */
-            transform: scale(1.15) rotate(-5deg); /* Cool Hover Animation */
-            filter: drop-shadow(0 0 20px var(--accent-glow)); /* Intense Glow */
+            color: white !important; transform: scale(1.15) rotate(-5deg);
+            filter: drop-shadow(0 0 20px var(--accent-glow));
         }
 
         /* --- HERO --- */
         .hero { min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: transparent; position: relative; padding: 50px 20px; }
         .hero h1 { font-size: 6.5rem; margin: 0; text-transform: uppercase; letter-spacing: 5px; font-weight: 900; animation: cyberReveal 1s forwards; text-shadow: 0 5px 15px rgba(0,0,0,0.8); position: relative; z-index: 2; }
-        .hero span { color: var(--accent-color); text-shadow: 0 0 25px var(--accent-glow), 0 0 60px var(--accent-glow); }
+        
+        /* RESTORED GLOW TEXT (Removed Glitch) */
+        .hero span { 
+            color: var(--accent-color); 
+            text-shadow: 0 0 25px var(--accent-glow), 0 0 60px var(--accent-glow); 
+            animation: neonPulse 3s infinite alternate;
+        }
+
         .hero p { font-size: 1.5rem; margin-top: 20px; opacity: 0.9; animation: cyberReveal 1s 0.2s forwards; opacity: 0; position: relative; z-index: 2; }
-        .btn { margin-top: 60px; padding: 18px 50px; background: transparent; color: var(--accent-color); font-weight: bold; border-radius: 4px; border: 2px solid var(--accent-color); cursor: pointer; transition: 0.3s; font-size: 1.3rem; letter-spacing: 2px; animation: cyberReveal 1s 0.5s forwards; opacity: 0; position: relative; z-index: 2; }
-        .btn:hover { background: var(--accent-color); color: black; box-shadow: 0 0 60px var(--accent-glow); }
+        
+        .btn { 
+            margin-top: 60px; padding: 18px 50px; background: transparent; 
+            color: var(--accent-color); font-weight: bold; border-radius: 4px; 
+            border: 2px solid var(--accent-color); cursor: pointer; transition: 0.3s; 
+            font-size: 1.3rem; letter-spacing: 2px; animation: cyberReveal 1s 0.5s forwards; 
+            opacity: 0; position: relative; z-index: 2; overflow: hidden;
+        }
+        .btn::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 210, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+        .btn:hover::before { left: 100%; }
+        .btn:hover { background: var(--accent-color); color: black; box-shadow: 0 0 40px var(--accent-glow), 0 0 10px white; }
 
         /* --- SECTIONS --- */
         .section-title { text-align: center; font-size: 3rem; margin: 100px 0 50px; text-transform: uppercase; display: inline-block; position: relative; font-weight: 800; letter-spacing: 2px; text-shadow: 0 5px 15px rgba(0,0,0,0.8); }
@@ -129,8 +147,7 @@
 
         /* --- HOUDINI & SOFTWARE --- */
         .houdini-box { 
-            background: var(--card-bg); 
-            border-left: 8px solid var(--houdini-color); 
+            background: var(--card-bg); border-left: 8px solid var(--houdini-color); 
             box-shadow: -5px 0 25px rgba(255, 69, 0, 0.5), 0 20px 50px rgba(0,0,0,0.4);
             padding: 70px; text-align: left; margin-bottom: 50px; position: relative; overflow: hidden; border-radius: 8px; backdrop-filter: blur(15px); 
         }
@@ -150,11 +167,8 @@
         .software-info h3 { margin: 0; font-size: 1.4rem; color: white; font-weight: 800; }
         .software-info p { margin: 5px 0 0 0; font-size: 1rem; opacity: 0.8; text-transform: uppercase; font-weight: bold;}
 
-        /* Software Colors */
         .ae-box { border-color: rgba(153, 0, 255, 0.2); } .ae-box .software-icon { background: rgba(153, 0, 255, 0.15); color: var(--ae-color); border: 2px solid var(--ae-color); } .ae-box:hover { box-shadow: 0 0 40px rgba(153, 0, 255, 0.3); border-color: var(--ae-color); } .ae-box .software-info p { color: var(--ae-color); }
-        
         .blender-box { border-color: rgba(232, 125, 13, 0.2); } .blender-box .software-icon { background: rgba(232, 125, 13, 0.15); color: var(--blender-color); border: 2px solid var(--blender-color); } .blender-box:hover { box-shadow: 0 0 40px rgba(232, 125, 13, 0.3); border-color: var(--blender-color); } .blender-box .software-info p { color: var(--blender-color); }
-        
         .hou-box { border-color: rgba(255, 69, 0, 0.2); } .hou-box .software-icon { background: rgba(255, 69, 0, 0.15); color: var(--houdini-color); border: 2px solid var(--houdini-color); } .hou-box:hover { box-shadow: 0 0 40px rgba(255, 69, 0, 0.3); border-color: var(--houdini-color); } .hou-box .software-info p { color: var(--houdini-color); }
 
         .discord-box { background: rgba(15, 15, 25, 0.8); padding: 70px; border: 2px solid var(--discord-color); text-align: center; margin-bottom: 100px; position: relative; box-shadow: 0 0 60px rgba(88, 101, 242, 0.2); border-radius: 8px; backdrop-filter: blur(15px); }
@@ -166,41 +180,26 @@
 
         /* --- CONTACT SECTION --- */
         .contact-box {
-            background: rgba(15, 15, 25, 0.8);
-            padding: 50px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 40px rgba(0, 210, 255, 0.05);
-            max-width: 800px;
-            margin: 0 auto;
+            background: rgba(15, 15, 25, 0.8); padding: 50px; border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1); text-align: center; backdrop-filter: blur(10px);
+            box-shadow: 0 0 40px rgba(0, 210, 255, 0.05); max-width: 800px; margin: 0 auto;
         }
         .contact-btn-wrapper { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
         .email-btn {
-            margin-top: 0 !important;
-            padding: 15px 40px;
-            border: 2px solid var(--accent-color);
-            background: rgba(0, 210, 255, 0.1);
-            color: white;
-            display: flex; align-items: center; gap: 10px;
+            margin-top: 0 !important; padding: 15px 40px; border: 2px solid var(--accent-color);
+            background: rgba(0, 210, 255, 0.1); color: white; display: flex; align-items: center; gap: 10px;
             font-size: 1.2rem; font-weight: bold; border-radius: 4px; cursor: pointer; transition: 0.3s;
         }
         .email-btn:hover { background: var(--accent-color); color: black; box-shadow: 0 0 40px var(--accent-glow); }
         
         .linkedin-btn {
-            margin-top: 0 !important;
-            padding: 15px 40px;
-            border: 2px solid #0077b5; /* LinkedIn Blue */
-            color: #0077b5;
-            background: rgba(0, 119, 181, 0.1);
-            display: flex; align-items: center; gap: 10px;
+            margin-top: 0 !important; padding: 15px 40px; border: 2px solid #0077b5;
+            color: #0077b5; background: rgba(0, 119, 181, 0.1); display: flex; align-items: center; gap: 10px;
             font-size: 1.2rem; font-weight: bold; border-radius: 4px; cursor: pointer; transition: 0.3s;
         }
         .linkedin-btn svg { fill: currentColor; }
         .linkedin-btn:hover { background: #0077b5; color: white; box-shadow: 0 0 40px rgba(0, 119, 181, 0.6); }
 
-        /* --- FOOTER & STATUS --- */
         footer { padding: 50px 20px; text-align: center; background: rgba(0,0,0,0.8); border-top: 1px solid rgba(255, 255, 255, 0.05); display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .footer-text { color: #666; font-size: 1.1rem; }
         .status-badge-footer { display: inline-flex; align-items: center; background: rgba(0, 255, 136, 0.1); border: 1px solid rgba(0, 255, 136, 0.3); padding: 8px 20px; border-radius: 20px; font-size: 1rem; color: var(--online-color); font-weight: bold; letter-spacing: 1px; text-transform: uppercase; }
@@ -208,6 +207,8 @@
     </style>
 </head>
 <body>
+
+    <canvas id="particle-canvas"></canvas>
 
     <nav>
         <div class="logo">TYLIX</div>
@@ -222,7 +223,6 @@
                     <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
                 </svg>
             </a>
-
         </div>
     </nav>
 
@@ -232,7 +232,8 @@
             <svg class="lightning bolt-2" viewBox="0 0 200 400"><path d="M80,0 L160,120 L100,120 L180,250 L110,250 L190,380" /></svg>
         </div>
 
-        <h1>I am <span>Tylix</span></h1>
+        <h1>I am <span>TYLIX</span></h1>
+        
         <p>VFX Artist & Motion Designer | Creating Cinematic Experiences</p>
         
         <div class="software-grid">
@@ -317,7 +318,6 @@
             </p>
 
             <div class="contact-btn-wrapper">
-                
                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sumitnath167@outlook.com" target="_blank" style="text-decoration: none;">
                     <button class="email-btn">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20,4H4C2.897,4,2,4.897,2,6v12c0,1.103,0.897,2,2,2h16c1.103,0,2-0.897,2-2V6C22,4.897,21.103,4,20,4z M20,6v0.511 l-8,6.223L4,6.512V6H20z M4,18V9.044l7.386,5.745C11.566,14.93,11.783,15,12,15s0.434-0.07,0.614-0.211L20,9.044V18H4z"/></svg>
@@ -333,7 +333,6 @@
                         LinkedIn
                     </button>
                 </a>
-
             </div>
         </div>
     </div>
@@ -354,6 +353,83 @@
         }, { threshold: 0.1 });
         const hiddenElements = document.querySelectorAll('.hidden');
         hiddenElements.forEach((el) => observer.observe(el));
+
+        // --- INTERACTIVE PARTICLE SYSTEM ---
+        const canvas = document.getElementById("particle-canvas");
+        const ctx = canvas.getContext("2d");
+        
+        let particles = [];
+        let mouse = { x: null, y: null };
+        
+        // Colors from your theme: Cyan, Purple, Orange, Green
+        const colors = ['#00d2ff', '#9900ff', '#ff4500', '#00ff88'];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas();
+
+        window.addEventListener("mousemove", (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+                this.color = colors[Math.floor(Math.random() * colors.length)]; // Random Color
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 60; i++) particles.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p) => {
+                p.update();
+                p.draw();
+                // Connect particles to mouse if close
+                let dx = mouse.x - p.x;
+                let dy = mouse.y - p.y;
+                let distance = Math.sqrt(dx*dx + dy*dy);
+                if (distance < 150) {
+                    // Line color matches particle color
+                    ctx.strokeStyle = p.color;
+                    ctx.globalAlpha = 1 - distance/150; // Fade out effect
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.stroke();
+                    ctx.globalAlpha = 1.0; // Reset alpha
+                }
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
     </script>
 </body>
 </html>
