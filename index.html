@@ -2,434 +2,392 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TYLIX | VFX & Motion</title>
     
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=Rajdhani:wght@500;700;900&display=swap" rel="stylesheet">
 
     <style>
-        /* --- GLOBAL STYLES & VARIABLES --- */
+        /* --- GLOBAL STYLES --- */
         :root {
-            --bg-color: #010101; 
-            --text-color: #ffffff;
+            --bg-color: #050505; 
             --accent-color: #00d2ff; /* CYAN */
-            --accent-glow: rgba(0, 210, 255, 0.8);
-            --secondary-glow: rgba(0, 60, 255, 0.5); 
-            --card-bg: rgba(15, 15, 25, 0.6); 
-            --online-color: #00ff88;
-            
-            /* Software Colors */
-            --ae-color: #9900ff; 
-            --ps-color: #31a8ff; 
-            --houdini-color: #ff4500;
-            --discord-color: #5865F2;
-            --blender-color: #e87d0d; 
+            --accent-glow: rgba(0, 210, 255, 0.6);
+            --card-bg: rgba(20, 20, 30, 0.6); 
+            --text-main: 'Outfit', sans-serif;
+            --text-head: 'Rajdhani', sans-serif;
         }
 
         html { scroll-behavior: smooth; }
 
         body {
-            margin: 0;
-            min-width: 1200px; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            overflow-x: hidden;
-            min-height: 100vh;
-            position: relative;
-            z-index: 1;
+            margin: 0; font-family: var(--text-main);
+            background-color: var(--bg-color); color: #ffffff;
+            line-height: 1.6; overflow-x: hidden; min-height: 100vh;
         }
 
-        /* --- PARTICLE CANVAS --- */
+        /* --- BACKGROUND --- */
+        .bg-image {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1534224039826-c7a11806decf?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            z-index: -3; filter: brightness(0.3) blur(2px);
+        }
+
         #particle-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            pointer-events: none;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2; pointer-events: none;
         }
-
-        /* --- BACKGROUND OVERLAY --- */
-        body::after {
-            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px; pointer-events: none;
-        }
-
-        a { text-decoration: none; color: white; transition: 0.3s; }
-        
-        /* --- ANIMATIONS --- */
-        @keyframes cyberReveal { 0% { opacity: 0; transform: translateY(50px) scale(0.95); filter: blur(10px); } 100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }
-        @keyframes blinkStatus { 0% { opacity: 1; box-shadow: 0 0 5px var(--online-color); } 50% { opacity: 0.6; } 100% { opacity: 1; box-shadow: 0 0 5px var(--online-color); } }
-        @keyframes neonPulse { 0% { text-shadow: 0 0 20px var(--accent-glow); } 50% { text-shadow: 0 0 40px var(--accent-glow), 0 0 10px white; } 100% { text-shadow: 0 0 20px var(--accent-glow); } }
-
-        /* --- HERO LIGHTNING VFX --- */
-        .hero-vfx-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; overflow: hidden; }
-        .lightning { position: absolute; fill: none; stroke: var(--accent-color); stroke-width: 2; filter: drop-shadow(0 0 15px var(--accent-color)); opacity: 0; }
-        .bolt-1 { top: -10%; left: 10%; width: 250px; transform: rotate(-10deg); animation: thunderFlash 6s infinite 1s; }
-        .bolt-2 { top: 5%; right: 10%; width: 200px; transform: scaleX(-1) rotate(10deg); animation: thunderFlash 9s infinite 3s; }
-        @keyframes thunderFlash { 0%, 92% { opacity: 0; } 93% { opacity: 1; } 94% { opacity: 0.1; } 96% { opacity: 0.8; } 100% { opacity: 0; } }
 
         /* --- NAVIGATION --- */
         nav {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 25px 60px; background: rgba(2, 2, 5, 0.7);
-            position: sticky; top: 0; z-index: 100;
-            backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0, 210, 255, 0.15);
+            padding: 20px 50px; position: sticky; top: 0; z-index: 100;
+            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .logo { font-size: 2.2rem; font-weight: 900; color: var(--accent-color); letter-spacing: 3px; text-shadow: 0 0 15px var(--accent-glow); }
-        .nav-links { display: flex; align-items: center; gap: 50px; }
-        .menu-link { font-size: 1.1rem; opacity: 0.8; position: relative; letter-spacing: 1px; transition: 0.3s; }
-        .menu-link:hover { color: var(--accent-color); opacity: 1; }
-        .menu-link::before { content: ''; position: absolute; left: -20px; top: 50%; transform: translateY(-50%); width: 6px; height: 6px; background: var(--accent-color); border-radius: 50%; opacity: 0; transition: 0.3s; box-shadow: 0 0 10px var(--accent-color); }
-        .menu-link:hover::before { opacity: 1; left: -12px; }
+        .logo { 
+            font-family: var(--text-head); font-size: 2.2rem; font-weight: 900; 
+            color: var(--accent-color); letter-spacing: 2px; text-transform: uppercase;
+        }
+        .nav-links { display: flex; align-items: center; gap: 40px; }
         
-        .shop-btn-nav {
-            margin-left: 30px; display: flex; align-items: center; justify-content: center;
-            color: var(--accent-color) !important; transition: 0.3s ease; padding: 5px;
+        .menu-link { 
+            font-size: 1rem; font-weight: 600; color: #ccc; letter-spacing: 1px; 
+            position: relative; text-transform: uppercase; text-decoration: none; transition: 0.3s;
         }
-        .shop-btn-nav svg {
-            width: 32px; height: 32px; fill: currentColor;
-            filter: drop-shadow(0 0 8px var(--accent-glow)); transition: 0.3s ease-in-out;
+        .menu-link::after {
+            content: ''; position: absolute; bottom: -5px; left: 0; width: 0%; height: 2px;
+            background: var(--accent-color); transition: 0.3s ease-in-out;
+            box-shadow: 0 0 10px var(--accent-color);
         }
-        .shop-btn-nav:hover svg {
-            color: white !important; transform: scale(1.15) rotate(-5deg);
-            filter: drop-shadow(0 0 20px var(--accent-glow));
-        }
+        .menu-link:hover { color: white; }
+        .menu-link:hover::after { width: 100%; }
 
-        /* --- HERO --- */
-        .hero { min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: transparent; position: relative; padding: 50px 20px; }
-        .hero h1 { font-size: 6.5rem; margin: 0; text-transform: uppercase; letter-spacing: 5px; font-weight: 900; animation: cyberReveal 1s forwards; text-shadow: 0 5px 15px rgba(0,0,0,0.8); position: relative; z-index: 2; }
-        
-        /* RESTORED GLOW TEXT (Removed Glitch) */
+        .store-btn svg {
+            width: 24px; height: 24px; fill: var(--accent-color); transition: 0.3s;
+            filter: drop-shadow(0 0 5px var(--accent-glow));
+        }
+        .store-btn:hover svg { transform: scale(1.1); fill: white; filter: drop-shadow(0 0 15px var(--accent-glow)); }
+
+        /* --- HERO SECTION --- */
+        .hero { 
+            min-height: 90vh; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; text-align: center; 
+        }
+        .hero h1 { 
+            font-family: var(--text-head); font-size: 8rem; margin: 0; line-height: 0.9; 
+            text-transform: uppercase; font-weight: 900; 
+            background: linear-gradient(to bottom, #ffffff, #888);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 20px rgba(255,255,255,0.2));
+            animation: floatUp 1s ease-out;
+        }
         .hero span { 
-            color: var(--accent-color); 
-            text-shadow: 0 0 25px var(--accent-glow), 0 0 60px var(--accent-glow); 
-            animation: neonPulse 3s infinite alternate;
+            color: var(--accent-color); -webkit-text-fill-color: var(--accent-color); 
+            text-shadow: 0 0 30px var(--accent-glow);
+        }
+        .hero p { font-size: 1.5rem; color: #ccc; margin-top: 20px; letter-spacing: 3px; animation: floatUp 1s 0.2s ease-out backwards; }
+
+        .btn { 
+            margin-top: 50px; padding: 15px 40px; 
+            background: linear-gradient(45deg, rgba(0, 210, 255, 0.1), transparent); 
+            color: var(--accent-color); font-weight: 700; border: 1px solid var(--accent-color);
+            font-family: var(--text-head); font-size: 1.2rem; letter-spacing: 2px;
+            cursor: pointer; transition: 0.4s; position: relative; overflow: hidden;
+            animation: floatUp 1s 0.4s ease-out backwards;
+        }
+        .btn:hover { background: var(--accent-color); color: black; box-shadow: 0 0 30px var(--accent-glow); }
+
+        /* --- SOFTWARE ICONS (UPDATED FOR ROUNDED RECTANGLE & ANIMATION) --- */
+        .software-grid { 
+            display: flex; gap: 40px; margin-top: 60px; 
+            animation: floatUp 1s 0.6s ease-out backwards; 
+        }
+        .sw-icon {
+            width: 120px; height: 120px; 
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 20px; /* Rounded Rectangle Shape */
+            font-weight: 900; font-family: var(--text-head); font-size: 2.5rem; 
+            background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px); transition: 0.3s;
+            position: relative; overflow: hidden;
+        }
+        
+        /* Cool Animation */
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.1); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
         }
 
-        .hero p { font-size: 1.5rem; margin-top: 20px; opacity: 0.9; animation: cyberReveal 1s 0.2s forwards; opacity: 0; position: relative; z-index: 2; }
+        /* Specific Color Styling & Animation */
+        .sw-ae { 
+            color: #9900ff; border-color: #9900ff; 
+            animation: pulse-border 2s infinite;
+        } 
+        .sw-ae:hover { 
+            box-shadow: 0 0 30px rgba(153, 0, 255, 0.8); 
+            transform: translateY(-8px) scale(1.1); 
+            background: rgba(153, 0, 255, 0.1);
+            animation: none;
+        }
         
-        .btn { 
-            margin-top: 60px; padding: 18px 50px; background: transparent; 
-            color: var(--accent-color); font-weight: bold; border-radius: 4px; 
-            border: 2px solid var(--accent-color); cursor: pointer; transition: 0.3s; 
-            font-size: 1.3rem; letter-spacing: 2px; animation: cyberReveal 1s 0.5s forwards; 
-            opacity: 0; position: relative; z-index: 2; overflow: hidden;
+        .sw-bl { 
+            color: #e87d0d; border-color: #e87d0d; 
+            animation: pulse-border 2s infinite 0.5s; /* Slight delay for staggered effect */
+        } 
+        .sw-bl:hover { 
+            box-shadow: 0 0 30px rgba(232, 125, 13, 0.8); 
+            transform: translateY(-8px) scale(1.1);
+            background: rgba(232, 125, 13, 0.1);
+            animation: none;
         }
-        .btn::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 210, 255, 0.4), transparent);
-            transition: 0.5s;
+        
+        .sw-hou { 
+            color: #ff4500; border-color: #ff4500; 
+            animation: pulse-border 2s infinite 1s; /* More delay */
+        } 
+        .sw-hou:hover { 
+            box-shadow: 0 0 30px rgba(255, 69, 0, 0.8); 
+            transform: translateY(-8px) scale(1.1);
+            background: rgba(255, 69, 0, 0.1);
+            animation: none;
         }
-        .btn:hover::before { left: 100%; }
-        .btn:hover { background: var(--accent-color); color: black; box-shadow: 0 0 40px var(--accent-glow), 0 0 10px white; }
 
         /* --- SECTIONS --- */
-        .section-title { text-align: center; font-size: 3rem; margin: 100px 0 50px; text-transform: uppercase; display: inline-block; position: relative; font-weight: 800; letter-spacing: 2px; text-shadow: 0 5px 15px rgba(0,0,0,0.8); }
-        .section-title::after { content: ''; display: block; width: 100%; height: 4px; margin: 15px auto 0; background: var(--accent-color); box-shadow: 0 0 25px var(--accent-color); }
-        .discord-title::after { background: var(--discord-color) !important; box-shadow: 0 0 25px var(--discord-color) !important; }
-
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 30px; text-align: center; padding-bottom: 80px; }
-        .hidden { opacity: 0; transform: translateY(50px) scale(0.95); filter: blur(5px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-        .show { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
-
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; } 
-        .card { background: var(--card-bg); border-radius: 8px; overflow: hidden; transition: all 0.4s ease; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 15px 35px rgba(0,0,0,0.4); position: relative; backdrop-filter: blur(15px); }
-        .card:hover { transform: translateY(-10px) scale(1.02); border-color: var(--accent-color); box-shadow: 0 25px 60px rgba(0, 210, 255, 0.25); }
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: black;}
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        .card-info { padding: 35px; text-align: left; }
-        .card-info h3 { margin: 0 0 15px 0; font-size: 1.6rem; color: white; letter-spacing: 1px; font-weight: 800;}
-        .card-info p { font-size: 1rem; color: var(--accent-color); display: inline-block; background: rgba(0, 210, 255, 0.15); padding: 8px 20px; border-radius: 4px; margin-right: 5px; border: 1px solid var(--accent-color); font-weight: bold; text-transform: uppercase;}
-
-        /* --- HOUDINI & SOFTWARE --- */
-        .houdini-box { 
-            background: var(--card-bg); border-left: 8px solid var(--houdini-color); 
-            box-shadow: -5px 0 25px rgba(255, 69, 0, 0.5), 0 20px 50px rgba(0,0,0,0.4);
-            padding: 70px; text-align: left; margin-bottom: 50px; position: relative; overflow: hidden; border-radius: 8px; backdrop-filter: blur(15px); 
+        .container { max-width: 1200px; margin: 0 auto; padding: 100px 20px; }
+        .section-title { 
+            text-align: center; font-family: var(--text-head); font-size: 3.5rem; 
+            margin-bottom: 60px; text-transform: uppercase; font-weight: 800;
         }
-        .houdini-title { 
-            color: var(--houdini-color); font-weight: 900; font-size: 2.5rem; 
-            display: flex; align-items: center; flex-wrap: wrap; gap: 20px;
-            text-shadow: 0 0 30px rgba(255, 69, 0, 0.7); letter-spacing: 2px; 
-            margin-bottom: 25px;
+        .section-title span { color: var(--accent-color); text-shadow: 0 0 20px var(--accent-glow); }
+
+        /* CARDS */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 40px; }
+        .card { 
+            background: var(--card-bg); border-radius: 12px; overflow: hidden; 
+            border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(15px);
+            transition: 0.4s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
-        .status-badge { background: rgba(255, 69, 0, 0.2); color: var(--houdini-color); padding: 8px 20px; font-size: 1rem; border: 1px solid var(--houdini-color); font-weight: bold; letter-spacing: 2px; border-radius: 4px; }
-        .houdini-box p { font-size: 1.2rem; }
-
-        .software-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; margin-top: 60px; justify-content: center; max-width: 1000px; width: 100%; animation: cyberReveal 1s 0.3s forwards; opacity: 0; position: relative; z-index: 2; }
-        .software-box { display: flex; align-items: center; background: rgba(20, 20, 25, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); padding: 25px; border-radius: 6px; text-align: left; transition: 0.3s; backdrop-filter: blur(10px); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
-        .software-box:hover { transform: translateY(-8px); box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
-        .software-icon { width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; font-weight: 900; font-size: 1.5rem; border-radius: 6px; margin-right: 20px; text-shadow: 0 0 15px currentColor; letter-spacing: 1px; flex-shrink: 0; }
-        .software-info h3 { margin: 0; font-size: 1.4rem; color: white; font-weight: 800; }
-        .software-info p { margin: 5px 0 0 0; font-size: 1rem; opacity: 0.8; text-transform: uppercase; font-weight: bold;}
-
-        .ae-box { border-color: rgba(153, 0, 255, 0.2); } .ae-box .software-icon { background: rgba(153, 0, 255, 0.15); color: var(--ae-color); border: 2px solid var(--ae-color); } .ae-box:hover { box-shadow: 0 0 40px rgba(153, 0, 255, 0.3); border-color: var(--ae-color); } .ae-box .software-info p { color: var(--ae-color); }
-        .blender-box { border-color: rgba(232, 125, 13, 0.2); } .blender-box .software-icon { background: rgba(232, 125, 13, 0.15); color: var(--blender-color); border: 2px solid var(--blender-color); } .blender-box:hover { box-shadow: 0 0 40px rgba(232, 125, 13, 0.3); border-color: var(--blender-color); } .blender-box .software-info p { color: var(--blender-color); }
-        .hou-box { border-color: rgba(255, 69, 0, 0.2); } .hou-box .software-icon { background: rgba(255, 69, 0, 0.15); color: var(--houdini-color); border: 2px solid var(--houdini-color); } .hou-box:hover { box-shadow: 0 0 40px rgba(255, 69, 0, 0.3); border-color: var(--houdini-color); } .hou-box .software-info p { color: var(--houdini-color); }
-
-        .discord-box { background: rgba(15, 15, 25, 0.8); padding: 70px; border: 2px solid var(--discord-color); text-align: center; margin-bottom: 100px; position: relative; box-shadow: 0 0 60px rgba(88, 101, 242, 0.2); border-radius: 8px; backdrop-filter: blur(15px); }
-        .discord-box h3 { font-size: 2.5rem; margin-bottom: 15px; color: white; font-weight: 900; }
-        .discord-box p { color: #ccc; margin-bottom: 35px; max-width: 800px; margin-left: auto; margin-right: auto; font-size: 1.2rem; }
-        .discord-btn { padding: 18px 50px; background-color: transparent; color: var(--discord-color); border: 2px solid var(--discord-color); font-weight: bold; font-size: 1.2rem; cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; gap: 12px; letter-spacing: 1px; border-radius: 4px; }
-        .discord-btn svg { fill: currentColor; transition: 0.3s; }
-        .discord-btn:hover { background-color: var(--discord-color); color: white; transform: translateY(-5px); box-shadow: 0 0 50px rgba(88, 101, 242, 0.8); }
-
-        /* --- CONTACT SECTION --- */
-        .contact-box {
-            background: rgba(15, 15, 25, 0.8); padding: 50px; border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.1); text-align: center; backdrop-filter: blur(10px);
-            box-shadow: 0 0 40px rgba(0, 210, 255, 0.05); max-width: 800px; margin: 0 auto;
-        }
-        .contact-btn-wrapper { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
-        .email-btn {
-            margin-top: 0 !important; padding: 15px 40px; border: 2px solid var(--accent-color);
-            background: rgba(0, 210, 255, 0.1); color: white; display: flex; align-items: center; gap: 10px;
-            font-size: 1.2rem; font-weight: bold; border-radius: 4px; cursor: pointer; transition: 0.3s;
-        }
-        .email-btn:hover { background: var(--accent-color); color: black; box-shadow: 0 0 40px var(--accent-glow); }
+        .card:hover { transform: translateY(-10px); border-color: var(--accent-color); box-shadow: 0 20px 50px rgba(0, 210, 255, 0.15); }
         
-        .linkedin-btn {
-            margin-top: 0 !important; padding: 15px 40px; border: 2px solid #0077b5;
-            color: #0077b5; background: rgba(0, 119, 181, 0.1); display: flex; align-items: center; gap: 10px;
-            font-size: 1.2rem; font-weight: bold; border-radius: 4px; cursor: pointer; transition: 0.3s;
-        }
-        .linkedin-btn svg { fill: currentColor; }
-        .linkedin-btn:hover { background: #0077b5; color: white; box-shadow: 0 0 40px rgba(0, 119, 181, 0.6); }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: black; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.9; transition: 0.3s; }
+        .card:hover .video-wrapper iframe { opacity: 1; }
 
-        footer { padding: 50px 20px; text-align: center; background: rgba(0,0,0,0.8); border-top: 1px solid rgba(255, 255, 255, 0.05); display: flex; flex-direction: column; align-items: center; gap: 20px; }
-        .footer-text { color: #666; font-size: 1.1rem; }
-        .status-badge-footer { display: inline-flex; align-items: center; background: rgba(0, 255, 136, 0.1); border: 1px solid rgba(0, 255, 136, 0.3); padding: 8px 20px; border-radius: 20px; font-size: 1rem; color: var(--online-color); font-weight: bold; letter-spacing: 1px; text-transform: uppercase; }
-        .status-dot { width: 10px; height: 10px; background-color: var(--online-color); border-radius: 50%; margin-right: 12px; box-shadow: 0 0 10px var(--online-color); animation: blinkStatus 2s infinite ease-in-out; }
+        .card-content { padding: 30px; }
+        .card-content h3 { margin: 0 0 10px; font-size: 1.8rem; font-family: var(--text-head); }
+        .tags { display: flex; gap: 10px; margin-top: 15px; }
+        .tag { font-size: 0.8rem; padding: 5px 12px; border-radius: 4px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); text-transform: uppercase; font-weight: 600; color: #ccc; }
+
+        /* HOUDINI BOX */
+        .houdini-box {
+            padding: 50px; text-align: center; border: 1px solid #ff4500;
+            background: rgba(255, 69, 0, 0.05); border-radius: 12px;
+        }
+        .houdini-badge { background: #ff4500; color: black; padding: 5px 10px; font-weight: bold; font-size: 0.8rem; border-radius: 4px; display: inline-block; margin-bottom: 15px;}
+
+        /* --- ABOUT SECTION (UPDATED) --- */
+        .about-grid { 
+            display: flex; align-items: center; gap: 60px; margin-top: 20px;
+            background: rgba(255,255,255,0.02); padding: 50px; border-radius: 12px; 
+            border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(10px);
+        }
+        .about-img { flex: 1; max-width: 300px; position: relative; }
+        
+        .about-img img { 
+            width: 100%; border-radius: 8px; filter: grayscale(100%); transition: 0.5s; 
+            border: 1px solid #333; opacity: 0.8;
+        }
+        .about-img:hover img { filter: grayscale(0%); border-color: var(--accent-color); box-shadow: 0 0 30px rgba(0,210,255,0.2); opacity: 1; }
+        
+        .about-text { flex: 2; text-align: left; }
+        .about-text h3 { font-family: var(--text-head); font-size: 3rem; margin: 0; line-height: 1; color: white; }
+        .about-text .real-name { font-size: 1.2rem; color: #666; font-weight: 400; margin-left: 15px; vertical-align: middle; font-family: var(--text-main); }
+        .about-text .location { color: var(--accent-color); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; display: block; margin-top: 5px;}
+        
+        .about-text p { color: #bbb; font-size: 1.15rem; margin-bottom: 20px; max-width: 650px; font-weight: 300; }
+        .movie-highlight { color: white; font-weight: 700; border-bottom: 1px solid var(--accent-color); }
+
+        /* CONTACT SECTION */
+        .contact-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+        .c-btn {
+            display: flex; align-items: center; gap: 10px; padding: 15px 35px;
+            border: 1px solid rgba(255,255,255,0.2); background: transparent; color: white;
+            font-family: var(--text-head); font-size: 1.1rem; font-weight: 700;
+            cursor: pointer; transition: 0.3s; text-decoration: none; border-radius: 6px;
+        }
+        .c-btn svg { width: 22px; height: 22px; fill: currentColor; }
+        
+        .btn-email:hover { border-color: var(--accent-color); background: var(--accent-color); color: black; box-shadow: 0 0 30px var(--accent-glow); }
+        .btn-discord:hover { border-color: #5865F2; background: #5865F2; color: white; box-shadow: 0 0 30px rgba(88, 101, 242, 0.6); }
+
+        @keyframes floatUp { 0% { opacity: 0; transform: translateY(40px); } 100% { opacity: 1; transform: translateY(0); } }
+
+        footer { text-align: center; padding: 50px; background: black; border-top: 1px solid rgba(255,255,255,0.1); color: #666; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 4rem; }
+            .about-grid { flex-direction: column; text-align: center; }
+            .about-text { text-align: center; }
+            .nav-links { display: none; }
+        }
     </style>
 </head>
 <body>
 
+    <div class="bg-image"></div>
     <canvas id="particle-canvas"></canvas>
 
     <nav>
         <div class="logo">TYLIX</div>
         <div class="nav-links">
-            <a href="#edits" class="menu-link">Movie Edits</a>
-            <a href="#houdini" class="menu-link">VFX & R&D</a>
-            <a href="#community" class="menu-link">Community</a>
-            <a href="#contact" class="menu-link">Contact</a>
+            <a href="#edits" class="menu-link">Edits</a>
+            <a href="#houdini" class="menu-link">VFX</a>
+            <a href="#about" class="menu-link">About</a> <a href="#contact" class="menu-link">Contact</a>
             
-            <a href="https://payhip.com/TylixAe" target="_blank" class="shop-btn-nav" title="Shop Assets">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
-                </svg>
+            <a href="https://payhip.com/TylixAe" target="_blank" class="store-btn">
+                <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
             </a>
         </div>
     </nav>
 
     <section class="hero">
-        <div class="hero-vfx-container">
-            <svg class="lightning bolt-1" viewBox="0 0 200 400"><path d="M100,0 L20,150 L80,150 L10,280 L70,280 L0,400" /></svg>
-            <svg class="lightning bolt-2" viewBox="0 0 200 400"><path d="M80,0 L160,120 L100,120 L180,250 L110,250 L190,380" /></svg>
-        </div>
-
-        <h1>I am <span>TYLIX</span></h1>
-        
-        <p>VFX Artist & Motion Designer | Creating Cinematic Experiences</p>
+        <h1>I AM <span>TYLIX</span></h1>
+        <p>VFX ARTIST | MOTION DESIGNER | EDITOR</p>
         
         <div class="software-grid">
-            <div class="software-box ae-box">
-                <div class="software-icon">Ae</div>
-                <div class="software-info"><h3>After Effects</h3><p>Mastered / Scripting</p></div>
-            </div>
-            
-            <div class="software-box blender-box">
-                <div class="software-icon">Bl</div>
-                <div class="software-info"><h3>Blender</h3><p>3D / Sculpting</p></div>
-            </div>
-
-            <div class="software-box hou-box">
-                <div class="software-icon">Hou</div>
-                <div class="software-info"><h3>Houdini FX</h3><p>Learning R&D</p></div>
-            </div>
+            <div class="sw-icon sw-ae">Ae</div>
+            <div class="sw-icon sw-bl">Bl</div>
+            <div class="sw-icon sw-hou">Hou</div>
         </div>
 
-        <a href="#edits"><button class="btn">INITIATE PORTFOLIO</button></a>
+        <a href="#edits"><button class="btn">VIEW PORTFOLIO</button></a>
     </section>
 
-    <div class="container hidden" id="edits">
-        <h2 class="section-title">Cinematic Movie Edits</h2>
+    <div class="container" id="edits">
+        <h2 class="section-title">Latest <span>Edits</span></h2>
         <div class="grid">
-            <div class="card hidden">
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/4_XpVlrDASo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="card">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/4_XpVlrDASo" frameborder="0" allowfullscreen></iframe>
                 </div>
-                <div class="card-info">
-                    <h3>Steve x Dustin | 4K Edit</h3>
-                    <div><p>After Effects</p><p>Twixtor</p><p>Sapphire</p></div>
+                <div class="card-content">
+                    <h3>Stranger Things | Cinematic Edit</h3>
+                    <div class="tags">
+                        <span class="tag">After Effects</span><span class="tag">Sapphire</span>
+                    </div>
                 </div>
             </div>
-            <div class="card hidden">
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/QXRj_cSDs98" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+            <div class="card">
+                <div class="video-wrapper">
+                      <iframe src="https://www.youtube.com/embed/QXRj_cSDs98" frameborder="0" allowfullscreen></iframe>
                 </div>
-                <div class="card-info">
-                    <h3>4K 60fps Godzilla Edit</h3>
-                      <div><p>Horror Composition</p><p>Color Grading</p></div>
+                <div class="card-content">
+                    <h3>Godzilla | Visual Composition</h3>
+                    <div class="tags">
+                        <span class="tag">Color Grading</span><span class="tag">Sound Design</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="container hidden" id="houdini">
-        <h2 class="section-title">VFX & Simulations</h2>
-        <div class="houdini-box hidden">
-            <div class="houdini-title">
-                Houdini Workflows <span class="status-badge">R&D IN PROGRESS 🚧</span>
-            </div>
-            <p style="margin-top: 25px; font-size: 1.2rem;">Currently expanding my technical skillset into <strong>SideFX Houdini</strong> for high-end procedural generation and dynamics.</p>
-            <p><strong>Focus Areas:</strong> Fluid Simulations (FLIP), Pyro FX (Fire/Smoke), and RBD Destruction.</p>
-        </div>
-    </div>
-
-    <div class="container hidden" id="community">
-        <h2 class="section-title discord-title">Community Resources</h2>
-        <div class="discord-box hidden">
-            <h3>Need Software Support & Plugins? 🛠️</h3>
-            <p>
-                Join our partner uSer395x Editing Community to access a library of <strong>essential editing tools</strong>, 
-                get help with installation errors, and find the resources you need to create without limits.
+    <div class="container" id="houdini">
+        <h2 class="section-title">VFX <span>LAB</span></h2>
+        <div class="houdini-box">
+            <span class="houdini-badge">WORK IN PROGRESS</span>
+            <h3 style="font-family: var(--text-head); font-size: 2rem; margin: 10px 0;">Houdini R&D</h3>
+            <p style="color: #aaa; max-width: 600px; margin: 0 auto;">
+                Currently learning procedural workflows, Pyro FX, and Flip Fluids. 
+                Full simulation showcase coming soon.
             </p>
-            <a href="https://discord.gg/UNQ4vXeP4A" target="_blank">
-                <button class="discord-btn">
-                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.5151.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.419-2.1568 2.419zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.419-2.1568 2.419z"/></svg>
-                    Join Discord Server
-                </button>
+        </div>
+    </div>
+
+    <div class="container" id="about">
+        <h2 class="section-title">The <span>Origin</span></h2>
+        <div class="about-grid">
+            <div class="about-img">
+                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop" alt="Sumit Nath">
+            </div>
+            <div class="about-text">
+                <h3>TYLIX <span class="real-name"> Sumit Nath</span></h3>
+                <span class="location">INDIA 🇮🇳</span>
+                
+                <p>
+                    I didn't just watch movies; I studied them. From the scale of <span class="movie-highlight">Godzilla</span> to the physics of <span class="movie-highlight">Interstellar</span> and the worlds of <span class="movie-highlight">Avatar</span>, I was obsessed with how the impossible was made real.
+                </p>
+                <p>
+                    That obsession became my craft. I realized I wanted to engineer reality, not just consume it. 
+                    Now, I use <strong>After Effects</strong> and <strong>Houdini</strong> to turn raw imagination into cinematic visuals.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="contact" style="padding-bottom: 80px; text-align: center;">
+        <h2 class="section-title">Let's <span>Connect</span></h2>
+        <p style="color: #aaa; margin-bottom: 40px;">AVAILABLE FOR FREELANCE & COLLABORATIONS</p>
+        
+        <div class="contact-btns">
+            <a href="mailto:sumitnath167@outlook.com" class="c-btn btn-email">
+                <svg viewBox="0 0 24 24"><path d="M20,4H4C2.897,4,2,4.897,2,6v12c0,1.103,0.897,2,2,2h16c1.103,0,2-0.897,2-2V6C22,4.897,21.103,4,20,4z M20,6v0.511 l-8,6.223L4,6.512V6H20z M4,18V9.044l7.386,5.745C11.566,14.93,11.783,15,12,15s0.434-0.07,0.614-0.211L20,9.044V18H4z"/></svg>
+                SEND EMAIL
+            </a>
+            <a href="https://discord.gg/vnZYPW7nq4" target="_blank" class="c-btn btn-discord">
+                <svg viewBox="0 0 24 24"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.5151.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.419-2.1568 2.419zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.419-2.1568 2.419z"/></svg>
+                JOIN DISCORD
             </a>
         </div>
     </div>
 
-    <div class="container hidden" id="contact">
-        <h2 class="section-title">Let's Work Together</h2>
-        
-        <div class="contact-box">
-            <p style="font-size: 1.2rem; margin-bottom: 30px; color: #ccc;">
-                Looking for high-end VFX, Motion Graphics, or Cinematic Editing? 
-                <br>I am available for freelance projects and full-time roles.
-            </p>
-
-            <div class="contact-btn-wrapper">
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sumitnath167@outlook.com" target="_blank" style="text-decoration: none;">
-                    <button class="email-btn">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20,4H4C2.897,4,2,4.897,2,6v12c0,1.103,0.897,2,2,2h16c1.103,0,2-0.897,2-2V6C22,4.897,21.103,4,20,4z M20,6v0.511 l-8,6.223L4,6.512V6H20z M4,18V9.044l7.386,5.745C11.566,14.93,11.783,15,12,15s0.434-0.07,0.614-0.211L20,9.044V18H4z"/></svg>
-                        Send Email
-                    </button>
-                </a>
-
-                <a href="https://www.linkedin.com/in/sumit-nath-028a003a2/" target="_blank" style="text-decoration: none;">
-                    <button class="linkedin-btn">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                        </svg>
-                        LinkedIn
-                    </button>
-                </a>
-            </div>
-        </div>
-    </div>
-
     <footer>
-        <div class="status-badge-footer">
-            <div class="status-dot"></div>
-            Server Status
-        </div>
-        <div class="footer-text">© 2026 Tylix Visuals. Made by a VFX Artist.</div>
+        <p>© 2026 TYLIX VFX. ALL RIGHTS RESERVED.</p>
     </footer>
 
     <script>
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) { setTimeout(() => { entry.target.classList.add('show'); }, 100); }
-            });
-        }, { threshold: 0.1 });
-        const hiddenElements = document.querySelectorAll('.hidden');
-        hiddenElements.forEach((el) => observer.observe(el));
-
-        // --- INTERACTIVE PARTICLE SYSTEM ---
         const canvas = document.getElementById("particle-canvas");
         const ctx = canvas.getContext("2d");
-        
         let particles = [];
-        let mouse = { x: null, y: null };
-        
-        // Colors from your theme: Cyan, Purple, Orange, Green
-        const colors = ['#00d2ff', '#9900ff', '#ff4500', '#00ff88'];
+        const colors = ['#00d2ff', '#9900ff']; 
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener("resize", resizeCanvas);
-        resizeCanvas();
-
-        window.addEventListener("mousemove", (e) => {
-            mouse.x = e.x;
-            mouse.y = e.y;
-        });
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener("resize", resize);
+        resize();
 
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = Math.random() * 1 - 0.5;
-                this.speedY = Math.random() * 1 - 0.5;
-                this.color = colors[Math.floor(Math.random() * colors.length)]; // Random Color
+                this.size = Math.random() * 2;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
             }
             update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
+                this.x += this.speedX; this.y += this.speedY;
                 if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
                 if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
             }
             draw() {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
+                ctx.fillStyle = this.color; ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
             }
         }
 
-        function initParticles() {
-            particles = [];
-            for (let i = 0; i < 60; i++) particles.push(new Particle());
-        }
-
-        function animateParticles() {
+        function init() { for (let i = 0; i < 50; i++) particles.push(new Particle()); }
+        function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach((p) => {
-                p.update();
-                p.draw();
-                // Connect particles to mouse if close
-                let dx = mouse.x - p.x;
-                let dy = mouse.y - p.y;
-                let distance = Math.sqrt(dx*dx + dy*dy);
-                if (distance < 150) {
-                    // Line color matches particle color
-                    ctx.strokeStyle = p.color;
-                    ctx.globalAlpha = 1 - distance/150; // Fade out effect
-                    ctx.lineWidth = 1;
-                    ctx.beginPath();
-                    ctx.moveTo(p.x, p.y);
-                    ctx.lineTo(mouse.x, mouse.y);
-                    ctx.stroke();
-                    ctx.globalAlpha = 1.0; // Reset alpha
-                }
-            });
-            requestAnimationFrame(animateParticles);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
         }
-
-        initParticles();
-        animateParticles();
+        init(); animate();
     </script>
 </body>
 </html>
