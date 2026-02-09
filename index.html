@@ -103,61 +103,30 @@
         }
         .btn:hover { background: var(--accent-color); color: black; box-shadow: 0 0 30px var(--accent-glow); }
 
-        /* --- SOFTWARE ICONS (UPDATED FOR ROUNDED RECTANGLE & ANIMATION) --- */
+        /* --- SOFTWARE ICONS (IMAGES ONLY) --- */
         .software-grid { 
-            display: flex; gap: 40px; margin-top: 60px; 
+            display: flex; gap: 60px; margin-top: 60px; justify-content: center; align-items: center;
             animation: floatUp 1s 0.6s ease-out backwards; 
         }
-        .sw-icon {
-            width: 120px; height: 120px; 
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 20px; /* Rounded Rectangle Shape */
-            font-weight: 900; font-family: var(--text-head); font-size: 2.5rem; 
-            background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px); transition: 0.3s;
-            position: relative; overflow: hidden;
-        }
         
-        /* Cool Animation */
-        @keyframes pulse-border {
-            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.1); }
-            70% { box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        .sw-logo {
+            width: 90px; /* Logo Size */
+            height: auto;
+            transition: 0.3s ease-in-out;
+            opacity: 0.9;
         }
 
-        /* Specific Color Styling & Animation */
-        .sw-ae { 
-            color: #9900ff; border-color: #9900ff; 
-            animation: pulse-border 2s infinite;
-        } 
-        .sw-ae:hover { 
-            box-shadow: 0 0 30px rgba(153, 0, 255, 0.8); 
-            transform: translateY(-8px) scale(1.1); 
-            background: rgba(153, 0, 255, 0.1);
-            animation: none;
+        /* Hover Animation */
+        .sw-logo:hover {
+            opacity: 1;
+            transform: scale(1.15) translateY(-5px);
         }
         
-        .sw-bl { 
-            color: #e87d0d; border-color: #e87d0d; 
-            animation: pulse-border 2s infinite 0.5s; /* Slight delay for staggered effect */
-        } 
-        .sw-bl:hover { 
-            box-shadow: 0 0 30px rgba(232, 125, 13, 0.8); 
-            transform: translateY(-8px) scale(1.1);
-            background: rgba(232, 125, 13, 0.1);
-            animation: none;
-        }
-        
-        .sw-hou { 
-            color: #ff4500; border-color: #ff4500; 
-            animation: pulse-border 2s infinite 1s; /* More delay */
-        } 
-        .sw-hou:hover { 
-            box-shadow: 0 0 30px rgba(255, 69, 0, 0.8); 
-            transform: translateY(-8px) scale(1.1);
-            background: rgba(255, 69, 0, 0.1);
-            animation: none;
-        }
+        /* Individual Glow Colors */
+        .ae-logo:hover { filter: drop-shadow(0 0 25px rgba(153, 0, 255, 0.7)); }
+        .bl-logo:hover { filter: drop-shadow(0 0 25px rgba(232, 125, 13, 0.7)); }
+        .hou-logo:hover { filter: drop-shadow(0 0 25px rgba(255, 69, 0, 0.7)); }
+
 
         /* --- SECTIONS --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 100px 20px; }
@@ -192,7 +161,7 @@
         }
         .houdini-badge { background: #ff4500; color: black; padding: 5px 10px; font-weight: bold; font-size: 0.8rem; border-radius: 4px; display: inline-block; margin-bottom: 15px;}
 
-        /* --- ABOUT SECTION (UPDATED) --- */
+        /* --- ABOUT SECTION --- */
         .about-grid { 
             display: flex; align-items: center; gap: 60px; margin-top: 20px;
             background: rgba(255,255,255,0.02); padding: 50px; border-radius: 12px; 
@@ -262,9 +231,14 @@
         <p>VFX ARTIST | MOTION DESIGNER | EDITOR</p>
         
         <div class="software-grid">
-            <div class="sw-icon sw-ae">Ae</div>
-            <div class="sw-icon sw-bl">Bl</div>
-            <div class="sw-icon sw-hou">Hou</div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Adobe_After_Effects_CC_icon.svg" 
+                 alt="After Effects" class="sw-logo ae-logo">
+            
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Blender_logo_no_text.svg" 
+                 alt="Blender" class="sw-logo bl-logo">
+            
+            <img src="file:///C:/Users/sumit/Downloads/houdini_logos/houdini_badge/houdini_badge_flat.svg" 
+                 alt="Houdini" class="sw-logo hou-logo">
         </div>
 
         <a href="#edits"><button class="btn">VIEW PORTFOLIO</button></a>
@@ -317,7 +291,7 @@
                 <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop" alt="Sumit Nath">
             </div>
             <div class="about-text">
-                <h3>TYLIX <span class="real-name"> Sumit Nath</span></h3>
+                <h3>TYLIX <span class="real-name">// Sumit Nath</span></h3>
                 <span class="location">INDIA 🇮🇳</span>
                 
                 <p>
@@ -340,7 +314,7 @@
                 <svg viewBox="0 0 24 24"><path d="M20,4H4C2.897,4,2,4.897,2,6v12c0,1.103,0.897,2,2,2h16c1.103,0,2-0.897,2-2V6C22,4.897,21.103,4,20,4z M20,6v0.511 l-8,6.223L4,6.512V6H20z M4,18V9.044l7.386,5.745C11.566,14.93,11.783,15,12,15s0.434-0.07,0.614-0.211L20,9.044V18H4z"/></svg>
                 SEND EMAIL
             </a>
-            <a href="https://discord.gg/vnZYPW7nq4" target="_blank" class="c-btn btn-discord">
+            <a href="https://discord.gg/UNQ4vXeP4A" target="_blank" class="c-btn btn-discord">
                 <svg viewBox="0 0 24 24"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.5151.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.419-2.1568 2.419zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.419-2.1568 2.419z"/></svg>
                 JOIN DISCORD
             </a>
