@@ -33,9 +33,9 @@
         /* --- 🔥 SCROLL REVEAL ANIMATION 🔥 --- */
         .hidden {
             opacity: 0;
-            transform: translateY(100px) scale(0.85);
+            transform: translateY(100px) scale(0.9);
             filter: blur(10px);
-            transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .show {
@@ -152,8 +152,9 @@
         }
         .section-title span { color: var(--accent-color); text-shadow: 0 0 20px var(--accent-glow); }
 
-        /* CARDS */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 40px; }
+        /* CARDS - MOBILE FIX (minmax 500px was breaking mobile) */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 40px; }
+        
         .card { 
             background: var(--card-bg); border-radius: 12px; overflow: hidden; 
             border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(15px);
@@ -212,17 +213,27 @@
         .about-text p { color: #bbb; font-size: 1.15rem; margin-bottom: 20px; max-width: 650px; font-weight: 300; }
         .movie-highlight { color: white; font-weight: 700; border-bottom: 1px solid var(--accent-color); }
 
-        /* CONTACT SECTION */
+        /* CONTACT SECTION - BUTTON FIXED */
         .contact-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
         .c-btn {
             display: flex; align-items: center; gap: 10px; padding: 15px 35px;
             border: 1px solid rgba(255,255,255,0.2); background: transparent; color: white;
             font-family: var(--text-head); font-size: 1.1rem; font-weight: 700;
-            cursor: pointer; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); text-decoration: none; border-radius: 6px;
+            cursor: pointer; transition: 0.2s ease-in-out; /* Removed Bounce for stability */
+            text-decoration: none; border-radius: 6px;
         }
         .c-btn svg { width: 22px; height: 22px; fill: currentColor; }
         
-        .c-btn:hover { transform: translateY(-5px) scale(1.05); } 
+        /* HOVER: Only moves up, NO SCALE (Fixes text blur/pop) */
+        .c-btn:hover { 
+            transform: translateY(-5px); 
+        } 
+
+        /* CLICK: Subtle press down, Stable size */
+        .c-btn:active {
+            transform: translateY(0); 
+            background: rgba(255,255,255,0.1);
+        }
 
         .btn-email:hover { border-color: var(--accent-color); background: var(--accent-color); color: black; box-shadow: 0 0 30px var(--accent-glow); }
         .btn-discord:hover { border-color: #5865F2; background: #5865F2; color: white; box-shadow: 0 0 30px rgba(88, 101, 242, 0.6); }
@@ -231,11 +242,30 @@
 
         footer { text-align: center; padding: 50px; background: black; border-top: 1px solid rgba(255,255,255,0.1); color: #666; }
 
+        /* --- 📱 MOBILE RESPONSIVENESS FIX --- */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 4rem; }
-            .about-grid { flex-direction: column; text-align: center; }
-            .about-text { text-align: center; }
+            .hero h1 { font-size: 3.5rem; line-height: 1.1; padding: 0 10px; }
+            .hero p { font-size: 1rem; padding: 0 20px; }
+            
             .nav-links { display: none; }
+            nav { justify-content: center; padding: 15px; } /* Center Logo */
+            
+            /* Fix Grid Overflow on Mobile */
+            .grid { grid-template-columns: 1fr; gap: 30px; } 
+            
+            /* Fix Software Icons on Mobile */
+            .software-grid { gap: 30px; flex-wrap: wrap; }
+            .sw-logo { width: 60px; }
+            .ae-logo { width: 55px; }
+            .hou-logo { width: 65px; }
+
+            /* Fix About Section */
+            .about-grid { flex-direction: column; text-align: center; padding: 30px; }
+            .about-text { text-align: center; }
+            .about-text h3 { font-size: 2.2rem; }
+            
+            .section-title { font-size: 2.5rem; }
+            .container { padding: 60px 20px; }
         }
     </style>
 </head>
@@ -321,7 +351,7 @@
                 <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000&auto=format&fit=crop" alt="VFX Simulation">
             </div>
             <div class="about-text">
-                <h3>TYLIX <span class="real-name"> Sumit Nath</span></h3>
+                <h3>TYLIX <span class="real-name">Sumit Nath</span></h3>
                 <span class="location">20 YEARS OLD • INDIA 🇮🇳</span>
                 
                 <p>
