@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=Rajdhani:wght@500;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 
     <style>
         /* --- GLOBAL STYLES --- */
@@ -52,7 +53,7 @@
             z-index: -3; filter: brightness(0.3) blur(2px);
         }
 
-        #particle-canvas {
+        #three-canvas {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: -2; pointer-events: none;
         }
@@ -152,7 +153,6 @@
         }
         .section-title span { color: var(--accent-color); text-shadow: 0 0 20px var(--accent-glow); }
 
-        /* CARDS - MOBILE FIX (minmax 500px was breaking mobile) */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 40px; }
         
         .card { 
@@ -213,27 +213,18 @@
         .about-text p { color: #bbb; font-size: 1.15rem; margin-bottom: 20px; max-width: 650px; font-weight: 300; }
         .movie-highlight { color: white; font-weight: 700; border-bottom: 1px solid var(--accent-color); }
 
-        /* CONTACT SECTION - BUTTON FIXED */
+        /* CONTACT SECTION */
         .contact-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
         .c-btn {
             display: flex; align-items: center; gap: 10px; padding: 15px 35px;
             border: 1px solid rgba(255,255,255,0.2); background: transparent; color: white;
             font-family: var(--text-head); font-size: 1.1rem; font-weight: 700;
-            cursor: pointer; transition: 0.2s ease-in-out; /* Removed Bounce for stability */
+            cursor: pointer; transition: 0.2s ease-in-out;
             text-decoration: none; border-radius: 6px;
         }
         .c-btn svg { width: 22px; height: 22px; fill: currentColor; }
-        
-        /* HOVER: Only moves up, NO SCALE (Fixes text blur/pop) */
-        .c-btn:hover { 
-            transform: translateY(-5px); 
-        } 
-
-        /* CLICK: Subtle press down, Stable size */
-        .c-btn:active {
-            transform: translateY(0); 
-            background: rgba(255,255,255,0.1);
-        }
+        .c-btn:hover { transform: translateY(-5px); } 
+        .c-btn:active { transform: translateY(0); background: rgba(255,255,255,0.1); }
 
         .btn-email:hover { border-color: var(--accent-color); background: var(--accent-color); color: black; box-shadow: 0 0 30px var(--accent-glow); }
         .btn-discord:hover { border-color: #5865F2; background: #5865F2; color: white; box-shadow: 0 0 30px rgba(88, 101, 242, 0.6); }
@@ -242,28 +233,19 @@
 
         footer { text-align: center; padding: 50px; background: black; border-top: 1px solid rgba(255,255,255,0.1); color: #666; }
 
-        /* --- 📱 MOBILE RESPONSIVENESS FIX --- */
         @media (max-width: 768px) {
             .hero h1 { font-size: 3.5rem; line-height: 1.1; padding: 0 10px; }
             .hero p { font-size: 1rem; padding: 0 20px; }
-            
             .nav-links { display: none; }
-            nav { justify-content: center; padding: 15px; } /* Center Logo */
-            
-            /* Fix Grid Overflow on Mobile */
+            nav { justify-content: center; padding: 15px; } 
             .grid { grid-template-columns: 1fr; gap: 30px; } 
-            
-            /* Fix Software Icons on Mobile */
             .software-grid { gap: 30px; flex-wrap: wrap; }
             .sw-logo { width: 60px; }
             .ae-logo { width: 55px; }
             .hou-logo { width: 65px; }
-
-            /* Fix About Section */
             .about-grid { flex-direction: column; text-align: center; padding: 30px; }
             .about-text { text-align: center; }
             .about-text h3 { font-size: 2.2rem; }
-            
             .section-title { font-size: 2.5rem; }
             .container { padding: 60px 20px; }
         }
@@ -272,14 +254,15 @@
 <body>
 
     <div class="bg-image"></div>
-    <canvas id="particle-canvas"></canvas>
+    <canvas id="three-canvas"></canvas>
 
     <nav>
         <div class="logo">TYLIX</div>
         <div class="nav-links">
             <a href="#edits" class="menu-link">Edits</a>
             <a href="#houdini" class="menu-link">VFX</a>
-            <a href="#about" class="menu-link">About</a> <a href="#contact" class="menu-link">Contact</a>
+            <a href="#about" class="menu-link">About</a> 
+            <a href="#contact" class="menu-link">Contact</a>
             
             <a href="https://payhip.com/TylixAe" target="_blank" class="store-btn">
                 <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
@@ -292,13 +275,9 @@
         <p>VFX ARTIST | 3D GENERALIST | EDITOR</p>
         
         <div class="software-grid">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Adobe_After_Effects_CC_icon.svg" 
-                 alt="After Effects" class="sw-logo ae-logo">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Blender_logo_no_text.svg" 
-                 alt="Blender" class="sw-logo bl-logo">
-            
-            <img src="houdini_svg.svg" 
-                 alt="Houdini" class="sw-logo hou-logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Adobe_After_Effects_CC_icon.svg" alt="After Effects" class="sw-logo ae-logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Blender_logo_no_text.svg" alt="Blender" class="sw-logo bl-logo">
+            <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/sidefxhoudini.svg" alt="Houdini" class="sw-logo hou-logo" style="filter: invert(1);">
         </div>
 
         <a href="#edits"><button class="btn">VIEW PORTFOLIO</button></a>
@@ -385,44 +364,69 @@
     </footer>
 
     <script>
-        const canvas = document.getElementById("particle-canvas");
-        const ctx = canvas.getContext("2d");
-        let particles = [];
-        const colors = ['#00d2ff', '#9900ff']; 
+        
+        // --- OPTIMIZED THREE.JS CODE ---
+	const scene = new THREE.Scene();
+	const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 3000);
+	const renderer = new THREE.WebGLRenderer({ 
+    	canvas: document.getElementById('three-canvas'), 
+    	alpha: true,
+    	antialias: false 
+	});
 
-        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        window.addEventListener("resize", resize);
-        resize();
+	renderer.setSize(window.innerWidth, window.innerHeight);
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                this.speedY = Math.random() * 0.5 - 0.25;
-                this.color = colors[Math.floor(Math.random() * colors.length)];
-            }
-            update() {
-                this.x += this.speedX; this.y += this.speedY;
-                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
-                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
-            }
-            draw() {
-                ctx.fillStyle = this.color; ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
-            }
-        }
+	const isMobile = window.innerWidth < 768;
+	renderer.setPixelRatio(isMobile ? 1 : Math.min(window.devicePixelRatio, 1.5)); 
 
-        function init() { for (let i = 0; i < 50; i++) particles.push(new Particle()); }
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animate);
-        }
-        init(); animate();
+	// --- CHANGES START HERE ---
+	// Particle count kam kiya: Laptop (1200), Mobile (400)
+	let particleCount = isMobile ? 400 : 1200; 
 
-        // --- SCROLL ANIMATION SCRIPT ---
+	const particlesGeometry = new THREE.BufferGeometry();
+	const posArray = new Float32Array(particleCount * 3);
+	const colorArray = new Float32Array(particleCount * 3);
+
+	for (let i = 0; i < particleCount * 3; i += 3) {
+    	// Thoda zyada spread (1800 -> 2200) taaki particles bhikhre hue lagein
+    	posArray[i]     = (Math.random() - 0.5) * 2200;
+    	posArray[i + 1] = (Math.random() - 0.5) * 2200;
+    	posArray[i + 2] = (Math.random() - 0.5) * 2200;
+
+    	const mix = Math.random();
+   	 colorArray[i]     = mix * 0.0 + (1 - mix) * (153/255);
+    	colorArray[i + 1] = mix * (210/255) + (1 - mix) * 0.0;
+    	colorArray[i + 2] = 1.0;
+	}
+
+	particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+	particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
+
+	const material = new THREE.PointsMaterial({
+    	// Size thoda aur bada kiya (4.5 -> 6.5)
+   	size: isMobile ? 5.5 : 6.5, 
+    	vertexColors: true,
+    	blending: THREE.AdditiveBlending,
+    	transparent: true,
+    	opacity: 0.7, // Thodi kam opacity for subtle look
+    	depthTest: false
+	});
+	// --- CHANGES END HERE ---
+
+	const particlesMesh = new THREE.Points(particlesGeometry, material);
+	scene.add(particlesMesh);
+	camera.position.z = 1000;
+
+	function animateThree() {
+    	requestAnimationFrame(animateThree);
+    	// Bahut slow aur smooth rotation
+   	particlesMesh.rotation.x += 0.0003;
+    	particlesMesh.rotation.y += 0.0005;
+    	renderer.render(scene, camera);
+	}
+	animateThree();
+
+        // SCROLL ANIMATION SCRIPT
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -433,6 +437,13 @@
 
         const hiddenElements = document.querySelectorAll('.hidden');
         hiddenElements.forEach((el) => observer.observe(el));
+
+        // Resize handling
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
     </script>
 </body>
 </html>
