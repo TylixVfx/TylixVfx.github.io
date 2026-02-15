@@ -277,8 +277,10 @@
         <div class="software-grid">
             <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Adobe_After_Effects_CC_icon.svg" alt="After Effects" class="sw-logo ae-logo">
             <img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Blender_logo_no_text.svg" alt="Blender" class="sw-logo bl-logo">
-            <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/sidefxhoudini.svg" alt="Houdini" class="sw-logo hou-logo" style="filter: invert(1);">
+            <img src="houdini_svg.svg" 
+                 alt="Houdini" class="sw-logo hou-logo">
         </div>
+
 
         <a href="#edits"><button class="btn">VIEW PORTFOLIO</button></a>
     </section>
@@ -364,8 +366,7 @@
     </footer>
 
     <script>
-        
-        // --- OPTIMIZED THREE.JS CODE ---
+        	// --- OPTIMIZED THREE.JS CODE ---
 	const scene = new THREE.Scene();
 	const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 3000);
 	const renderer = new THREE.WebGLRenderer({ 
@@ -394,7 +395,7 @@
     	posArray[i + 2] = (Math.random() - 0.5) * 2200;
 
     	const mix = Math.random();
-   	 colorArray[i]     = mix * 0.0 + (1 - mix) * (153/255);
+    	colorArray[i]     = mix * 0.0 + (1 - mix) * (153/255);
     	colorArray[i + 1] = mix * (210/255) + (1 - mix) * 0.0;
     	colorArray[i + 2] = 1.0;
 	}
@@ -404,7 +405,7 @@
 
 	const material = new THREE.PointsMaterial({
     	// Size thoda aur bada kiya (4.5 -> 6.5)
-   	size: isMobile ? 5.5 : 6.5, 
+    	size: isMobile ? 5.5 : 6.5, 
     	vertexColors: true,
     	blending: THREE.AdditiveBlending,
     	transparent: true,
@@ -420,11 +421,11 @@
 	function animateThree() {
     	requestAnimationFrame(animateThree);
     	// Bahut slow aur smooth rotation
-   	particlesMesh.rotation.x += 0.0003;
+    	particlesMesh.rotation.x += 0.0003;
     	particlesMesh.rotation.y += 0.0005;
     	renderer.render(scene, camera);
 	}
-	animateThree();
+animateThree();
 
         // SCROLL ANIMATION SCRIPT
         const observer = new IntersectionObserver((entries) => {
