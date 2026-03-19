@@ -89,6 +89,44 @@
         }
         .store-btn:hover svg { transform: scale(1.1); fill: white; filter: drop-shadow(0 0 15px var(--accent-glow)); }
 
+        /* --- 🔥 NEW: ARJUN'S BIRTHDAY BANNER CSS 🔥 --- */
+        #bday-banner {
+            background: linear-gradient(90deg, #ff007f, #7928ca);
+            color: white;
+            text-align: center;
+            padding: 12px 20px;
+            font-family: var(--text-head);
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 99;
+            box-shadow: 0 5px 25px rgba(255, 0, 127, 0.5);
+            animation: pulse-border 2s infinite;
+        }
+
+        #bday-banner a {
+            color: #fff;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #bday-banner a:hover { text-shadow: 0 0 10px white; }
+        
+        #bday-banner span.emoji {
+            font-size: 1.5rem;
+            display: inline-block;
+            animation: bounce 1s infinite alternate;
+        }
+        
+        #timer-text { font-family: var(--text-main); font-weight: 900; background: rgba(0,0,0,0.3); padding: 2px 8px; border-radius: 4px; margin-left: 10px; }
+
+        @keyframes bounce { 0% { transform: translateY(0); } 100% { transform: translateY(-5px); } }
+        @keyframes pulse-border { 0% { box-shadow: 0 0 10px rgba(255, 0, 127, 0.4); } 50% { box-shadow: 0 0 30px rgba(255, 0, 127, 0.8); } 100% { box-shadow: 0 0 10px rgba(255, 0, 127, 0.4); } }
+        /* --- END OF NEW CSS --- */
+
         /* --- HERO SECTION --- */
         .hero { 
             min-height: 90vh; display: flex; flex-direction: column; 
@@ -248,6 +286,9 @@
             .about-text h3 { font-size: 2.2rem; }
             .section-title { font-size: 2.5rem; }
             .container { padding: 60px 20px; }
+            
+            /* Banner adjust for mobile */
+            #bday-banner { font-size: 0.9rem; padding: 10px; }
         }
     </style>
 </head>
@@ -270,6 +311,14 @@
         </div>
     </nav>
 
+    <div id="bday-banner">
+        <a href="https://drive.google.com/file/d/1so1nprQufkO7b0EiutDEqgtDLLfXbOi1/view?usp=sharing" target="_blank">
+            <span class="emoji">🎁</span> 
+            HAPPY 16TH BIRTHDAY ARJUN! (BACHA SUR) - CLICK HERE FOR YOUR EXCLUSIVE TYLIX BUNDLE! 
+            <span class="emoji">🎁</span> 
+            <span id="timer-text">24:00:00</span>
+        </a>
+    </div>
     <section class="hero">
         <h1>I AM <span>TYLIX</span></h1>
         <p>VFX ARTIST | 3D GENERALIST | EDITOR</p>
@@ -366,65 +415,92 @@
     </footer>
 
     <script>
-        	// --- OPTIMIZED THREE.JS CODE ---
-	const scene = new THREE.Scene();
-	const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 3000);
-	const renderer = new THREE.WebGLRenderer({ 
-    	canvas: document.getElementById('three-canvas'), 
-    	alpha: true,
-    	antialias: false 
-	});
+        // --- 🔥 NEW: ARJUN'S BIRTHDAY TIMER SCRIPT 🔥 ---
+        // Set the timer for exactly 24 hours from the moment the script runs
+        const now = new Date().getTime();
+        const endTime = now + (24 * 60 * 60 * 1000); // 24 hours in milliseconds
 
-	renderer.setSize(window.innerWidth, window.innerHeight);
+        const x = setInterval(function() {
+            const currentTime = new Date().getTime();
+            const distance = endTime - currentTime;
 
-	const isMobile = window.innerWidth < 768;
-	renderer.setPixelRatio(isMobile ? 1 : Math.min(window.devicePixelRatio, 1.5)); 
+            // Math to calculate hours, minutes, and seconds
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-	// --- CHANGES START HERE ---
-	// Particle count kam kiya: Laptop (1200), Mobile (400)
-	let particleCount = isMobile ? 400 : 1200; 
+            // Output the result in the element with id="timer-text"
+            document.getElementById("timer-text").innerHTML = 
+                hours.toString().padStart(2, '0') + "h : " + 
+                minutes.toString().padStart(2, '0') + "m : " + 
+                seconds.toString().padStart(2, '0') + "s";
 
-	const particlesGeometry = new THREE.BufferGeometry();
-	const posArray = new Float32Array(particleCount * 3);
-	const colorArray = new Float32Array(particleCount * 3);
+            // If the countdown is over, hide the banner
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("bday-banner").style.display = "none";
+            }
+        }, 1000);
+        // --- END OF TIMER SCRIPT ---
 
-	for (let i = 0; i < particleCount * 3; i += 3) {
-    	// Thoda zyada spread (1800 -> 2200) taaki particles bhikhre hue lagein
-    	posArray[i]     = (Math.random() - 0.5) * 2200;
-    	posArray[i + 1] = (Math.random() - 0.5) * 2200;
-    	posArray[i + 2] = (Math.random() - 0.5) * 2200;
 
-    	const mix = Math.random();
-    	colorArray[i]     = mix * 0.0 + (1 - mix) * (153/255);
-    	colorArray[i + 1] = mix * (210/255) + (1 - mix) * 0.0;
-    	colorArray[i + 2] = 1.0;
-	}
+        // --- OPTIMIZED THREE.JS CODE ---
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 3000);
+    const renderer = new THREE.WebGLRenderer({ 
+        canvas: document.getElementById('three-canvas'), 
+        alpha: true,
+        antialias: false 
+    });
 
-	particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-	particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
+    renderer.setSize(window.innerWidth, window.innerHeight);
 
-	const material = new THREE.PointsMaterial({
-    	// Size thoda aur bada kiya (4.5 -> 6.5)
-    	size: isMobile ? 5.5 : 6.5, 
-    	vertexColors: true,
-    	blending: THREE.AdditiveBlending,
-    	transparent: true,
-    	opacity: 0.7, // Thodi kam opacity for subtle look
-    	depthTest: false
-	});
-	// --- CHANGES END HERE ---
+    const isMobile = window.innerWidth < 768;
+    renderer.setPixelRatio(isMobile ? 1 : Math.min(window.devicePixelRatio, 1.5)); 
 
-	const particlesMesh = new THREE.Points(particlesGeometry, material);
-	scene.add(particlesMesh);
-	camera.position.z = 1000;
+    // Particle count kam kiya: Laptop (1200), Mobile (400)
+    let particleCount = isMobile ? 400 : 1200; 
 
-	function animateThree() {
-    	requestAnimationFrame(animateThree);
-    	// Bahut slow aur smooth rotation
-    	particlesMesh.rotation.x += 0.0003;
-    	particlesMesh.rotation.y += 0.0005;
-    	renderer.render(scene, camera);
-	}
+    const particlesGeometry = new THREE.BufferGeometry();
+    const posArray = new Float32Array(particleCount * 3);
+    const colorArray = new Float32Array(particleCount * 3);
+
+    for (let i = 0; i < particleCount * 3; i += 3) {
+        // Thoda zyada spread (1800 -> 2200) taaki particles bhikhre hue lagein
+        posArray[i]     = (Math.random() - 0.5) * 2200;
+        posArray[i + 1] = (Math.random() - 0.5) * 2200;
+        posArray[i + 2] = (Math.random() - 0.5) * 2200;
+
+        const mix = Math.random();
+        colorArray[i]     = mix * 0.0 + (1 - mix) * (153/255);
+        colorArray[i + 1] = mix * (210/255) + (1 - mix) * 0.0;
+        colorArray[i + 2] = 1.0;
+    }
+
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
+
+    const material = new THREE.PointsMaterial({
+        // Size thoda aur bada kiya (4.5 -> 6.5)
+        size: isMobile ? 5.5 : 6.5, 
+        vertexColors: true,
+        blending: THREE.AdditiveBlending,
+        transparent: true,
+        opacity: 0.7, // Thodi kam opacity for subtle look
+        depthTest: false
+    });
+
+    const particlesMesh = new THREE.Points(particlesGeometry, material);
+    scene.add(particlesMesh);
+    camera.position.z = 1000;
+
+    function animateThree() {
+        requestAnimationFrame(animateThree);
+        // Bahut slow aur smooth rotation
+        particlesMesh.rotation.x += 0.0003;
+        particlesMesh.rotation.y += 0.0005;
+        renderer.render(scene, camera);
+    }
 animateThree();
 
         // SCROLL ANIMATION SCRIPT
