@@ -89,44 +89,6 @@
         }
         .store-btn:hover svg { transform: scale(1.1); fill: white; filter: drop-shadow(0 0 15px var(--accent-glow)); }
 
-        /* --- 🔥 NEW: ARJUN'S BIRTHDAY BANNER CSS 🔥 --- */
-        #bday-banner {
-            background: linear-gradient(90deg, #ff007f, #7928ca);
-            color: white;
-            text-align: center;
-            padding: 12px 20px;
-            font-family: var(--text-head);
-            font-size: 1.2rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            position: relative;
-            z-index: 99;
-            box-shadow: 0 5px 25px rgba(255, 0, 127, 0.5);
-            animation: pulse-border 2s infinite;
-        }
-
-        #bday-banner a {
-            color: #fff;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        #bday-banner a:hover { text-shadow: 0 0 10px white; }
-        
-        #bday-banner span.emoji {
-            font-size: 1.5rem;
-            display: inline-block;
-            animation: bounce 1s infinite alternate;
-        }
-        
-        #timer-text { font-family: var(--text-main); font-weight: 900; background: rgba(0,0,0,0.3); padding: 2px 8px; border-radius: 4px; margin-left: 10px; }
-
-        @keyframes bounce { 0% { transform: translateY(0); } 100% { transform: translateY(-5px); } }
-        @keyframes pulse-border { 0% { box-shadow: 0 0 10px rgba(255, 0, 127, 0.4); } 50% { box-shadow: 0 0 30px rgba(255, 0, 127, 0.8); } 100% { box-shadow: 0 0 10px rgba(255, 0, 127, 0.4); } }
-        /* --- END OF NEW CSS --- */
-
         /* --- HERO SECTION --- */
         .hero { 
             min-height: 90vh; display: flex; flex-direction: column; 
@@ -181,7 +143,6 @@
         .ae-logo:hover { filter: drop-shadow(0 0 25px rgba(153, 0, 255, 0.7)); }
         .bl-logo:hover { filter: drop-shadow(0 0 25px rgba(232, 125, 13, 0.7)); }
         .hou-logo:hover { filter: drop-shadow(0 0 25px rgba(255, 69, 0, 0.7)); }
-
 
         /* --- SECTIONS --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 100px 20px; }
@@ -286,25 +247,6 @@
             .about-text h3 { font-size: 2.2rem; }
             .section-title { font-size: 2.5rem; }
             .container { padding: 60px 20px; }
-            
-            /* --- 🔥 FIXED BANNER ADJUST FOR MOBILE 🔥 --- */
-            #bday-banner { 
-                font-size: 0.8rem; 
-                padding: 10px 5px; 
-            }
-            #bday-banner a { 
-                flex-direction: column; /* Stacks text and timer */
-                gap: 5px; 
-                text-align: center;
-                line-height: 1.4;
-            }
-            #timer-text { 
-                margin-left: 0; 
-                margin-top: 4px; 
-                font-size: 1rem; 
-                display: inline-block;
-            }
-            /* --- END FIX --- */
         }
     </style>
 </head>
@@ -327,14 +269,6 @@
         </div>
     </nav>
 
-    <div id="bday-banner">
-        <a href="https://drive.google.com/file/d/1so1nprQufkO7b0EiutDEqgtDLLfXbOi1/view?usp=sharing" target="_blank">
-            <span class="emoji">🎁</span> 
-            HAPPY 16TH BIRTHDAY ARJUN! (BACHA SUR) - CLICK HERE FOR YOUR EXCLUSIVE TYLIX BUNDLE! 
-            <span class="emoji">🎁</span> 
-            <span id="timer-text">24:00:00</span>
-        </a>
-    </div>
     <section class="hero">
         <h1>I AM <span>TYLIX</span></h1>
         <p>VFX ARTIST | 3D GENERALIST | EDITOR</p>
@@ -345,7 +279,6 @@
             <img src="houdini_svg.svg" 
                  alt="Houdini" class="sw-logo hou-logo">
         </div>
-
 
         <a href="#edits"><button class="btn">VIEW PORTFOLIO</button></a>
     </section>
@@ -431,35 +364,6 @@
     </footer>
 
     <script>
-        // --- 🔥 NEW: ARJUN'S BIRTHDAY TIMER SCRIPT 🔥 ---
-        // Set the timer for exactly 24 hours from the moment the script runs
-        const now = new Date().getTime();
-        const endTime = new Date("Mar 20, 2026 12:00:00").getTime();
-
-        const x = setInterval(function() {
-            const currentTime = new Date().getTime();
-            const distance = endTime - currentTime;
-
-            // Math to calculate hours, minutes, and seconds
-            const hours = Math.floor(distance / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            // Output the result in the element with id="timer-text"
-            document.getElementById("timer-text").innerHTML = 
-                hours.toString().padStart(2, '0') + "h : " + 
-                minutes.toString().padStart(2, '0') + "m : " + 
-                seconds.toString().padStart(2, '0') + "s";
-
-            // If the countdown is over, hide the banner
-            if (distance < 0) {
-                clearInterval(x);
-                document.getElementById("bday-banner").style.display = "none";
-            }
-        }, 1000);
-        // --- END OF TIMER SCRIPT ---
-
-
         // --- OPTIMIZED THREE.JS CODE ---
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 3000);
@@ -517,7 +421,7 @@
         particlesMesh.rotation.y += 0.0005;
         renderer.render(scene, camera);
     }
-animateThree();
+    animateThree();
 
         // SCROLL ANIMATION SCRIPT
         const observer = new IntersectionObserver((entries) => {
