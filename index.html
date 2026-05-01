@@ -53,13 +53,18 @@
             background: linear-gradient(145deg, rgba(20, 25, 35, 0.6) 0%, rgba(10, 15, 20, 0.6) 100%);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .glass-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(0, 240, 255, 0.3);
-            box-shadow: 0 10px 30px -10px rgba(0, 240, 255, 0.15);
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(176, 38, 255, 0.4);
+            box-shadow: 0 15px 40px -10px rgba(176, 38, 255, 0.2), 0 0 20px rgba(0, 240, 255, 0.1);
+        }
+
+        .glass-card-houdini:hover {
+            border-color: rgba(249, 115, 22, 0.5); /* Orange hover for Houdini */
+            box-shadow: 0 15px 40px -10px rgba(249, 115, 22, 0.2);
         }
 
         .gradient-text {
@@ -92,11 +97,10 @@
 
         .btn-glow:hover {
             box-shadow: 0 0 30px rgba(176, 38, 255, 0.6), 0 0 60px rgba(0, 240, 255, 0.4);
-            transform: scale(1.02);
+            transform: scale(1.05);
             color: #fff !important;
         }
 
-        /* Premium Navbar Animation */
         .nav-link {
             position: relative;
             padding-bottom: 4px;
@@ -119,9 +123,16 @@
 
         .video-container {
             box-shadow: 0 0 50px rgba(176, 38, 255, 0.15), 0 0 100px rgba(0, 240, 255, 0.1);
-            position: relative;
             border-radius: 1rem;
-            padding: 2px;
+        }
+        
+        /* Custom feature icon styling */
+        .feature-icon-wrapper {
+            transition: all 0.4s ease;
+        }
+        .glass-card:hover .feature-icon-wrapper {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
         }
     </style>
 </head>
@@ -135,10 +146,10 @@
             </a>
             <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-300">
                 <a href="#" class="nav-link hover:text-white transition">Home</a>
-                <a href="#ecosystem" class="nav-link hover:text-white transition">After Effects</a>
+                <a href="#features" class="nav-link hover:text-white transition">Features</a>
                 <a href="#ecosystem" class="nav-link hover:text-white transition">Houdini</a>
                 <a href="#showreel" class="nav-link hover:text-white transition">Showreel</a>
-                <a href="#ecosystem" class="nav-link text-neonCyan hover:text-white transition">Store</a>
+                <a href="https://realtylix07.gumroad.com/" target="_blank" class="nav-link text-neonCyan hover:text-white transition">Store</a>
             </div>
         </div>
     </nav>
@@ -146,7 +157,7 @@
     <!-- Hero Section -->
     <section class="relative pt-40 pb-20 px-6 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12">
         <div class="flex-1 text-center lg:text-left z-10">
-            <div class="inline-block px-4 py-1.5 rounded-full glass border border-neonPurple/30 text-neonPurple text-xs font-bold tracking-widest mb-6 uppercase">
+            <div class="inline-block px-4 py-1.5 rounded-full glass border border-neonPurple/30 text-neonPurple text-xs font-bold tracking-widest mb-6 uppercase animate-pulse">
                 New Release v1.0
             </div>
             <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
@@ -166,17 +177,59 @@
             </div>
         </div>
         
-        <!-- Native Video Embed -->
+        <!-- Robust Native Video Embed -->
         <div class="flex-1 w-full max-w-2xl z-10">
             <div class="video-container overflow-hidden rounded-2xl bg-surface border border-white/10 shadow-2xl relative">
-                <video 
-                    src="./promo.mp4" 
-                    autoplay 
-                    loop 
-                    muted 
-                    playsinline 
-                    class="w-full h-auto rounded-2xl object-cover block"
-                ></video>
+                <!-- Make sure the file uploaded to Github is exactly named 'promo.mp4' -->
+                <video autoplay loop muted playsinline class="w-full h-auto rounded-2xl object-cover block">
+                    <source src="promo.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: AutoCaption Pro Features -->
+    <section id="features" class="py-24 px-6 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-extrabold mb-4">Why AutoCaption Pro?</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Built to eliminate hours of manual transcription and keyframing from your editing workflow.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Feature 1 -->
+                <div class="glass-card p-8 rounded-2xl text-center md:text-left group cursor-default">
+                    <div class="feature-icon-wrapper w-14 h-14 rounded-xl bg-neonPurple/20 border border-neonPurple/30 flex items-center justify-center text-neonPurple mb-6 mx-auto md:mx-0">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">One-Click Magic</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Generate your entire caption layout instantly. No manual typing or creating text layers from scratch.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="glass-card p-8 rounded-2xl text-center md:text-left group cursor-default">
+                    <div class="feature-icon-wrapper w-14 h-14 rounded-xl bg-neonCyan/20 border border-neonCyan/30 flex items-center justify-center text-neonCyan mb-6 mx-auto md:mx-0">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Frame-Perfect Sync</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Text aligns flawlessly with your audio markers automatically. Save hours of manual timeline dragging.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="glass-card p-8 rounded-2xl text-center md:text-left group cursor-default">
+                    <div class="feature-icon-wrapper w-14 h-14 rounded-xl bg-pink-500/20 border border-pink-500/30 flex items-center justify-center text-pink-500 mb-6 mx-auto md:mx-0">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Full Styling Control</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Total control over fonts, colors, animations, and drop shadows to match your unique cinematic style.</p>
+                </div>
+                <!-- Feature 4 -->
+                <div class="glass-card p-8 rounded-2xl text-center md:text-left group cursor-default">
+                    <div class="feature-icon-wrapper w-14 h-14 rounded-xl bg-orange-500/20 border border-orange-500/30 flex items-center justify-center text-orange-500 mb-6 mx-auto md:mx-0">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Highly Accurate</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Powered by advanced transcription logic ensuring the generated words match the screen without errors.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -191,30 +244,51 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- After Effects Card -->
-                <div class="glass-card rounded-2xl overflow-hidden flex flex-col">
+                <div class="glass-card rounded-2xl overflow-hidden flex flex-col group">
                     <div class="h-2 bg-gradient-to-r from-neonPurple to-pink-500"></div>
                     <div class="p-8 flex-1 flex flex-col">
-                        <h3 class="text-2xl font-bold mb-2">After Effects</h3>
+                        <h3 class="text-2xl font-bold mb-2 group-hover:text-neonPurple transition-colors">After Effects</h3>
                         <p class="text-neonPurple text-sm font-semibold tracking-wide uppercase mb-6">Motion Graphics & Comp</p>
-                        <p class="text-gray-400 text-sm mb-8 flex-1">Accelerate your compositing workflow with automated scripting and dynamic captioning.</p>
-                        <a href="https://realtylix07.gumroad.com/l/uosxom" target="_blank" class="inline-block text-center w-full py-3 rounded-lg border border-neonPurple/50 hover:bg-neonPurple/20 transition-colors font-medium text-white">Get AutoCaption Pro</a>
+                        <ul class="text-gray-400 text-sm mb-8 space-y-3 flex-1">
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-neonPurple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span>Accelerate compositing workflows.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-neonPurple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span>Automated scripting & captioning.</span>
+                            </li>
+                        </ul>
+                        <a href="https://realtylix07.gumroad.com/l/uosxom" target="_blank" class="inline-block text-center w-full py-3 rounded-lg border border-neonPurple/50 hover:bg-neonPurple hover:text-white transition-all duration-300 font-bold text-neonPurple">Get AutoCaption Pro</a>
                     </div>
                 </div>
 
                 <!-- Houdini Card -->
-                <div class="glass-card rounded-2xl overflow-hidden flex flex-col border-orange-500/30">
+                <div class="glass-card glass-card-houdini rounded-2xl overflow-hidden flex flex-col border-white/5">
                     <div class="h-2 bg-gradient-to-r from-orange-500 to-yellow-500"></div>
                     <div class="p-8 flex-1 flex flex-col">
-                        <h3 class="text-2xl font-bold mb-2">Houdini</h3>
-                        <p class="text-orange-400 text-sm font-semibold tracking-wide uppercase mb-4">Procedural FX Tools (Free)</p>
-                        <p class="text-gray-400 text-sm mb-6 flex-1">Python shelf tools to optimize your node graph, manage memory, and speed up your learning curve.</p>
+                        <h3 class="text-2xl font-bold mb-2 transition-colors">Houdini</h3>
+                        <p class="text-orange-400 text-sm font-semibold tracking-wide uppercase mb-6">Procedural FX Tools (Free)</p>
+                        
+                        <!-- Added Features list for Houdini -->
+                        <ul class="text-gray-400 text-sm mb-8 space-y-3 flex-1">
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-orange-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                                <span><strong>RAM Saver:</strong> One-click proxy switching to bypass viewport lag during simulations.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-orange-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span><strong>Mentor UI:</strong> Custom floating widget containing Node explainers & shortcuts.</span>
+                            </li>
+                        </ul>
+
                         <div class="flex flex-col gap-3">
-                            <a href="https://www.mediafire.com/file/kzu2w2rx0r9yq1x/proxy_cache_shelf_tool_FINAL.py/file" target="_blank" class="inline-flex items-center justify-center gap-2 w-full py-3 rounded-lg border border-orange-500/30 hover:border-orange-500 hover:bg-orange-500/10 transition-colors font-medium text-sm">
-                                <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            <a href="https://www.mediafire.com/file/kzu2w2rx0r9yq1x/proxy_cache_shelf_tool_FINAL.py/file" target="_blank" class="group inline-flex items-center justify-center gap-2 w-full py-3 rounded-lg border border-orange-500/30 hover:border-orange-500 hover:bg-orange-500 hover:text-white transition-all duration-300 font-medium text-sm text-gray-300">
+                                <svg class="w-4 h-4 text-orange-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                                 Proxy & Cache Shelf Tool
                             </a>
-                            <a href="https://www.mediafire.com/file/uit95i0p5ieu7sw/tylix_houdini_mentor+(2).py/file" target="_blank" class="inline-flex items-center justify-center gap-2 w-full py-3 rounded-lg border border-orange-500/30 hover:border-orange-500 hover:bg-orange-500/10 transition-colors font-medium text-sm">
-                                <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            <a href="https://www.mediafire.com/file/uit95i0p5ieu7sw/tylix_houdini_mentor+(2).py/file" target="_blank" class="group inline-flex items-center justify-center gap-2 w-full py-3 rounded-lg border border-orange-500/30 hover:border-orange-500 hover:bg-orange-500 hover:text-white transition-all duration-300 font-medium text-sm text-gray-300">
+                                <svg class="w-4 h-4 text-orange-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                                 Tylix Houdini Mentor UI
                             </a>
                         </div>
@@ -222,13 +296,13 @@
                 </div>
 
                 <!-- Blender Card -->
-                <div class="glass-card rounded-2xl overflow-hidden flex flex-col">
+                <div class="glass-card rounded-2xl overflow-hidden flex flex-col group">
                     <div class="h-2 bg-gradient-to-r from-blue-500 to-neonCyan"></div>
                     <div class="p-8 flex-1 flex flex-col">
-                        <h3 class="text-2xl font-bold mb-2">Blender</h3>
+                        <h3 class="text-2xl font-bold mb-2 group-hover:text-neonCyan transition-colors">Blender</h3>
                         <p class="text-neonCyan text-sm font-semibold tracking-wide uppercase mb-6">3D Workflows</p>
                         <p class="text-gray-400 text-sm mb-8 flex-1">Viewport optimization scripts and addons coming soon for complex 3D scenes.</p>
-                        <button class="inline-block text-center w-full py-3 rounded-lg border border-white/10 opacity-50 cursor-not-allowed font-medium">In Development</button>
+                        <button class="inline-block text-center w-full py-3 rounded-lg border border-white/10 opacity-50 cursor-not-allowed font-medium text-gray-400">In Development</button>
                     </div>
                 </div>
             </div>
@@ -243,7 +317,7 @@
             <div class="glass-card p-12 rounded-3xl w-full max-w-3xl border border-neonCyan/20 relative overflow-hidden group">
                 <div class="absolute inset-0 bg-gradient-to-br from-neonCyan/5 to-neonPurple/5"></div>
                 <div class="relative z-10">
-                    <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center rounded-full bg-surface border border-white/10 group-hover:border-neonCyan/50 transition duration-500">
+                    <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center rounded-full bg-surface border border-white/10 group-hover:border-neonCyan transition duration-500 group-hover:shadow-[0_0_30px_rgba(0,240,255,0.3)]">
                         <svg class="w-10 h-10 text-gray-400 group-hover:text-neonCyan transition duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
                     </div>
                     <h3 class="text-2xl font-bold text-white mb-2">Currently Brewing...</h3>
@@ -260,20 +334,19 @@
                 <a href="#" class="text-2xl font-extrabold tracking-tight block mb-2">
                     TYLIX<span class="text-neonCyan">.</span>
                 </a>
-                <!-- Updated About Section -->
                 <p class="text-gray-400 text-sm">I'm a VFX Artist and Tool Developer.</p>
             </div>
             
             <div class="flex items-center gap-6">
                 <!-- YouTube -->
-                <a href="https://youtube.com/@RealTylix" target="_blank" class="flex items-center gap-2 text-gray-400 hover:text-white transition">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M21.582,6.186c-0.23-0.86-0.908-1.538-1.768-1.768C18.254,4,12,4,12,4s-6.254,0-7.814,0.418 c-0.86,0.23-1.538,0.908-1.768,1.768C2,7.746,2,12,2,12s0,4.254,0.418,5.814c0.23,0.86,0.908,1.538,1.768,1.768 C5.746,20,12,20,12,20s6.254,0,7.814-0.418c0.86-0.23,1.538-0.908,1.768-1.768C22,16.254,22,12,22,12S22,7.746,21.582,6.186z M10,15.464V8.536L16,12L10,15.464z"/></svg>
+                <a href="https://youtube.com/@RealTylix" target="_blank" class="flex items-center gap-2 text-gray-400 hover:text-white transition group">
+                    <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M21.582,6.186c-0.23-0.86-0.908-1.538-1.768-1.768C18.254,4,12,4,12,4s-6.254,0-7.814,0.418 c-0.86,0.23-1.538,0.908-1.768,1.768C2,7.746,2,12,2,12s0,4.254,0.418,5.814c0.23,0.86,0.908,1.538,1.768,1.768 C5.746,20,12,20,12,20s6.254,0,7.814-0.418c0.86-0.23,1.538-0.908,1.768-1.768C22,16.254,22,12,22,12S22,7.746,21.582,6.186z M10,15.464V8.536L16,12L10,15.464z"/></svg>
                     <span class="font-medium">@RealTylix</span>
                 </a>
                 
                 <!-- Discord -->
-                <a href="https://discord.gg/QP29tdVA72" target="_blank" class="flex items-center gap-2 text-gray-400 hover:text-[#5865F2] transition">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+                <a href="https://discord.gg/QP29tdVA72" target="_blank" class="flex items-center gap-2 text-gray-400 hover:text-[#5865F2] transition group">
+                    <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
                     <span class="font-medium">real_tylix</span>
                 </a>
             </div>
